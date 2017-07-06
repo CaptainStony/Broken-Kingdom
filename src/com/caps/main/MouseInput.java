@@ -4,13 +4,14 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelListener;
 
 import com.caps.cmd.StartGame;
 import com.caps.main.Game.STATE;
 import com.caps.objects.Colonist;
 
 
-public class MouseInput extends MouseAdapter{
+public class MouseInput extends MouseAdapter implements MouseWheelListener{
 	private Game game;
 	private Menu menu;
 	public MouseInput(Game game, Menu menu){		
@@ -30,8 +31,6 @@ public class MouseInput extends MouseAdapter{
 					break;
 				}
 			}
-		}else if (game.gameState == STATE.Game){
-			
 		}
 	}
 	
@@ -49,6 +48,8 @@ public class MouseInput extends MouseAdapter{
 			}
 		}
 	}
+	
+	
 	
 	public void mouseReleased(MouseEvent e){
 		

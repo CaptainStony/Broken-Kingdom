@@ -7,7 +7,7 @@ public class Grid {
 
 	LinkedList<GridCell> gridCell = new LinkedList<GridCell>();
 	LinkedList<Tile> tile = new LinkedList<Tile>();
-	public int cellWidth = 100, cellHeight = 60;	
+	public int cellWidth = 700, cellHeight = 700;	
 	public Grid() {
 		generateGrid(cellWidth,cellHeight);
 		generateTiles(cellWidth,cellHeight);
