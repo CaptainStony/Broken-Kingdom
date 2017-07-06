@@ -7,10 +7,10 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter{
 
 	private Game game;
-	
-	public KeyInput(Game game){
+	private Handler handler;
+	public KeyInput(Game game,Handler handler){
 		this.game = game;
-
+		this.handler = handler;
 	}
 	
 	public void keyPressed(KeyEvent e){

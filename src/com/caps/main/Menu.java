@@ -28,7 +28,7 @@ public class Menu {
 		addButton(50, 50, 500, 30, "Start Game", new StartGame(game),game);
 		addButton(50, 90, 500, 30, "Options", new Options(this),game);
 		addButton(50, 130, 500, 30, "Credits", new Credits(game,this),game);
-		Sound.backMusic.loop();
+		//Sound.backMusic.loop();
 
 	}
 	

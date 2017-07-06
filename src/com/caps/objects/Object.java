@@ -7,9 +7,10 @@ import com.caps.main.GridCell;
 
 public abstract class Object {
 
-	protected float x, y;
-	protected float velX, velY;
-	protected GridCell gridLocation;
+	public float x, y;
+	public float velX;
+	public float velY;
+	public GridCell gridLocation;
 
 	public Object(float x, float y){
 		this.x = x;

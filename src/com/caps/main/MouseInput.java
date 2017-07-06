@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 
 import com.caps.cmd.StartGame;
 import com.caps.main.Game.STATE;
+import com.caps.objects.Colonist;
 
 
 public class MouseInput extends MouseAdapter{
@@ -29,6 +30,8 @@ public class MouseInput extends MouseAdapter{
 					break;
 				}
 			}
+		}else if (game.gameState == STATE.Game){
+			
 		}
 	}
 	
