@@ -4,11 +4,14 @@ import java.awt.Graphics;
 import java.util.LinkedList;
 
 import com.caps.main.Game.STATE;
+import com.caps.objects.Colonist;
+import com.caps.objects.Object;
 
 public class Handler {
 
 	LinkedList<Button> menuButton = new LinkedList<Button>();
-	
+	LinkedList<Object> Colonist = new LinkedList<Object>();
+
 	public void tick(){
 		if (Game.gameState == STATE.Menu){
 			for (int i = 0; i < menuButton.size(); i++) {
@@ -26,7 +29,19 @@ public class Handler {
 			}
 		}
 	}
-	 
+	
+	public void addObject(Object object){
+		if(object instanceof Colonist){
+			Colonist.add(object);
+		}
+	}
+	
+	public void removeObject(Object object){
+		if(object instanceof Colonist){
+			Colonist.remove(object);
+		}
+	}
+	
 	public void addButton(Button button){
 		this.menuButton.add(button);
 	}

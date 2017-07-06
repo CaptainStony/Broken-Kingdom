@@ -12,5 +12,6 @@ public class StartGame implements IButtonFunctions{
 	@Override
 	public void execute() {
 		game.gameState = STATE.Game;
+		
 	}
 }

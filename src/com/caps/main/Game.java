@@ -38,7 +38,7 @@ public class Game extends Canvas implements Runnable{
 		mouseinput = new MouseInput(this, handler);
 		this.addMouseMotionListener(mouseinput);
 		this.addMouseListener(mouseinput);
-		new Window(WIDTH, HEIGHT, "skirr", this);
+		new Window(WIDTH, HEIGHT, "Broken Kingdom", this);
 	}
 	
 	
