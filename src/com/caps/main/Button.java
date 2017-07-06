@@ -3,20 +3,21 @@ package com.caps.main;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import com.caps.cmd.IButtonFunctions;
+
 public class Button {
-	
-	private Game game;
+	private Game game; // Sosi khuy
 	private int x,y,width,height;
 	private String text;
-	private String command;
-	public Button(int x, int y, int width, int height,String text,String command, Game game) {
+	private IButtonFunctions func; //skeeer
+	public Button(int x, int y, int width, int height,String text, IButtonFunctions ibf, Game game) {
 		this.game = game;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 		this.text = text;
-		this.command = command;
+		this.func = ibf;
 	}
 	
 	public void tick(){
@@ -46,5 +47,8 @@ public class Button {
 	}
 	public void setText(String text) {
 		this.text = text;
+	}
+	public void click(){
+		func.execute();
 	}
 }
