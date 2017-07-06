@@ -7,10 +7,9 @@ public class Template implements IButtonFunctions{
 	public Template(Game g){
 		game = g;
 	}
+	@SuppressWarnings("static-access")
 	@Override
 	public void execute() {
-		System.out.println("Kys");
 		System.out.println(game.gameState);
 	}
-	// Kill me now
 }

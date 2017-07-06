@@ -2,14 +2,17 @@ package com.caps.main;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 
 import com.caps.cmd.IButtonFunctions;
 
 public class Button {
-	private Game game; // Sosi khuy
+	private Game game;
 	private int x,y,width,height;
 	private String text;
-	private IButtonFunctions func; //skeeer
+	private IButtonFunctions func;
+	private Rectangle bounds;
+	
 	public Button(int x, int y, int width, int height,String text, IButtonFunctions ibf, Game game) {
 		this.game = game;
 		this.x = x;
@@ -18,16 +21,31 @@ public class Button {
 		this.height = height;
 		this.text = text;
 		this.func = ibf;
+		bounds = new Rectangle(x, y, width, height);
 	}
-	
+
 	public void tick(){
 		
 	}
+	
 	public void render(Graphics g){
 		g.setColor(Color.black);
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.white);
 		g.drawString(text, (int) (x+width/2-(text.length()*3)), y+height/2);
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Class getFunctionClass(){
+		return func.getClass();
+	}
+	
+	public Rectangle getBounds() {
+		return bounds;
+	}
+
+	public void setBounds(Rectangle bounds) {
+		this.bounds = bounds;
 	}
 	
 	public int getX() {

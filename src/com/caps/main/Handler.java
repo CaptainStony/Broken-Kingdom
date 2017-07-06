@@ -3,22 +3,27 @@ package com.caps.main;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
+import com.caps.main.Game.STATE;
+
 public class Handler {
 
 	LinkedList<Button> menuButton = new LinkedList<Button>();
 	
 	public void tick(){
-		for (int i = 0; i < menuButton.size(); i++) {
-			Button tempButton = menuButton.get(i);
-			tempButton.tick();
-			
+		if (Game.gameState == STATE.Menu){
+			for (int i = 0; i < menuButton.size(); i++) {
+				Button tempButton = menuButton.get(i);
+				tempButton.tick();
+			}	
 		}
 	}
 	
 	public void render(Graphics g){
-		for (int i = 0; i < menuButton.size(); i++) {
-			Button tempButton = menuButton.get(i);
-			tempButton.render(g);
+		if (Game.gameState == STATE.Menu){
+			for (int i = 0; i < menuButton.size(); i++) {
+				Button tempButton = menuButton.get(i);
+				tempButton.render(g);
+			}
 		}
 	}
 	 

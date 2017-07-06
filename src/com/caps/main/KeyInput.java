@@ -1,6 +1,7 @@
 package com.caps.main;
 
 import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 public class KeyInput extends KeyAdapter{
@@ -12,13 +13,13 @@ public class KeyInput extends KeyAdapter{
 
 	}
 	
-	public void keyPressed(java.awt.event.KeyEvent e){
+	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();
 	}
 		
 	
 	
-	public void keyReleased(java.awt.event.KeyEvent e){
+	public void keyReleased(KeyEvent e){
 		int key = e.getKeyCode();
 	}
 }

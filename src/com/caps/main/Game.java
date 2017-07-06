@@ -10,7 +10,7 @@ import java.awt.image.BufferStrategy;
 
 
 public class Game extends Canvas implements Runnable{
-	public STATE gameState = STATE.Menu;
+	public static STATE gameState = STATE.Menu;
 
 	public enum STATE{
 		Game,
@@ -35,7 +35,7 @@ public class Game extends Canvas implements Runnable{
 	public Game(){
 		handler = new Handler();
 		menu = new Menu(this,handler);
-		mouseinput = new MouseInput(this);
+		mouseinput = new MouseInput(this, handler);
 		this.addMouseListener(mouseinput);
 		new Window(WIDTH, HEIGHT, "skirr", this);
 	}
@@ -112,7 +112,8 @@ public class Game extends Canvas implements Runnable{
 		handler.render(g);
 		mouseinput.render(g);
 		if (gameState == STATE.Game){
-			
+			g.setColor(Color.cyan);
+			g.fillRect(60, 60, 80, 80);
 		}else if (gameState == STATE.Menu){
 			menu.render(g);
 		}
