@@ -36,6 +36,7 @@ public class Game extends Canvas implements Runnable{
 		handler = new Handler();
 		menu = new Menu(this,handler);
 		mouseinput = new MouseInput(this, handler);
+		this.addMouseMotionListener(mouseinput);
 		this.addMouseListener(mouseinput);
 		new Window(WIDTH, HEIGHT, "skirr", this);
 	}

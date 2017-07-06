@@ -1,7 +1,7 @@
 package com.caps.main;
 
 import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -20,14 +20,28 @@ public class MouseInput extends MouseAdapter{
 	public void mousePressed(MouseEvent e){
 		int mx = e.getX();
 		int my = e.getY();
-		Rectangle mouseRect = new Rectangle(mx, my, 1, 1);
+		Point mousePoint = new Point(mx, my);
+		Sound.click.play();
 		if (game.gameState == STATE.Menu){
 			for (Button b : handler.menuButton) {
-				if(b.getFunctionClass() == StartGame.class){
-					if (mouseRect.intersects(b.getBounds())){
-						b.click();
-						break;
-					}
+				if (b.getBounds().contains(mousePoint)){
+					b.click();
+					break;
+				}
+			}
+		}
+	}
+	
+	public void mouseMoved(MouseEvent e){
+		int mx = e.getX();
+		int my = e.getY();
+		Point mousePoint = new Point(mx, my);
+		if (game.gameState == STATE.Menu){
+			for (Button b : handler.menuButton) {
+				if (b.getBounds().contains(mousePoint)){
+					b.setHighlighted(true);
+				}else{
+					b.setHighlighted(false);
 				}
 			}
 		}

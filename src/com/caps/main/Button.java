@@ -12,6 +12,8 @@ public class Button {
 	private String text;
 	private IButtonFunctions func;
 	private Rectangle bounds;
+
+	private Boolean highlighted = false;
 	
 	public Button(int x, int y, int width, int height,String text, IButtonFunctions ibf, Game game) {
 		this.game = game;
@@ -33,6 +35,12 @@ public class Button {
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.white);
 		g.drawString(text, (int) (x+width/2-(text.length()*3)), y+height/2);
+		
+		if (highlighted){
+			g.setColor(Color.white);
+			g.drawRect(x, y, width, height);
+		}
+			
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -68,5 +76,12 @@ public class Button {
 	}
 	public void click(){
 		func.execute();
+	}
+	public Boolean getHighlighted() {
+		return highlighted;
+	}
+
+	public void setHighlighted(Boolean highlighted) {
+		this.highlighted = highlighted;
 	}
 }
