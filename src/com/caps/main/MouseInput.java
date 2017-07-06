@@ -11,10 +11,10 @@ import com.caps.main.Game.STATE;
 
 public class MouseInput extends MouseAdapter{
 	private Game game;
-	private Handler handler;
-	public MouseInput(Game game, Handler handler){		
+	private Menu menu;
+	public MouseInput(Game game, Menu menu){		
 		this.game = game;
-		this.handler = handler;
+		this.menu = menu;
 	}
 	
 	public void mousePressed(MouseEvent e){
@@ -23,7 +23,7 @@ public class MouseInput extends MouseAdapter{
 		Point mousePoint = new Point(mx, my);
 		Sound.click.play();
 		if (game.gameState == STATE.Menu){
-			for (Button b : handler.menuButton) {
+			for (Button b : menu.menuButton) {
 				if (b.getBounds().contains(mousePoint)){
 					b.click();
 					break;
@@ -37,7 +37,7 @@ public class MouseInput extends MouseAdapter{
 		int my = e.getY();
 		Point mousePoint = new Point(mx, my);
 		if (game.gameState == STATE.Menu){
-			for (Button b : handler.menuButton) {
+			for (Button b : menu.menuButton) {
 				if (b.getBounds().contains(mousePoint)){
 					b.setHighlighted(true);
 				}else{

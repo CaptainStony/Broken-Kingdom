@@ -27,15 +27,14 @@ public class Game extends Canvas implements Runnable{
 	private boolean running = false;
 	private MouseInput mouseinput;
 	private Menu menu;
-	private Handler handler;
+	public GameManager gamemanager;
 	private int Frames = 0;
 //	private Random r = new Random();
 
 	
 	public Game(){
-		handler = new Handler();
-		menu = new Menu(this,handler);
-		mouseinput = new MouseInput(this, handler);
+		menu = new Menu(this);
+		mouseinput = new MouseInput(this, menu);
 		this.addMouseMotionListener(mouseinput);
 		this.addMouseListener(mouseinput);
 		new Window(WIDTH, HEIGHT, "Broken Kingdom", this);
@@ -93,9 +92,8 @@ public class Game extends Canvas implements Runnable{
 
 	private void tick(){
 		mouseinput.tick();
-		handler.tick();
 		if(gameState == STATE.Game){
-			
+			gamemanager.tick();
 		}else if(gameState == STATE.Menu){
 			menu.tick();
 		}
@@ -110,11 +108,9 @@ public class Game extends Canvas implements Runnable{
 		Graphics g = bs.getDrawGraphics();
 	    g.setColor(Color.GRAY);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		handler.render(g);
 		mouseinput.render(g);
 		if (gameState == STATE.Game){
-			g.setColor(Color.cyan);
-			g.fillRect(60, 60, 80, 80);
+			gamemanager.render(g);
 		}else if (gameState == STATE.Menu){
 			menu.render(g);
 		}

@@ -21,12 +21,12 @@ public class Colonist extends Object{
 	public void render(Graphics g) {
 
 		g.setColor(Color.yellow);
-		g.fillRect((int)x, (int)y, 30, 30);
+		g.fillRect((int)x, (int)y, 20, 20);
 
 	}
 	@Override
 	public Rectangle getBoundsTotal() {
-		return new Rectangle((int)x, (int)y, 30, 30);
+		return new Rectangle((int)x, (int)y, 20, 20);
 
 	}
 
