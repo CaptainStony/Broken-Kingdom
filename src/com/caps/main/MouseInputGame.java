@@ -39,9 +39,9 @@ public class MouseInputGame extends MouseAdapter implements MouseWheelListener{
 	
 	public void mouseWheelMoved(MouseWheelEvent e){
 		int dir = e.getWheelRotation();
-		
 		gameManager.scaleX -= (double)dir/20;
-		gameManager.scaleY -= (double)dir/20;
+		gameManager.scaleY -= (double)dir/20;	
+		
 		//gameManager.camX += e.getX()/50;
 		//gameManager.camY -= e.getY()/50;
 

@@ -1,5 +1,7 @@
 package com.caps.main;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Random;
@@ -21,7 +23,7 @@ public class GameManager {
 		handler = new Handler();
 		handler.addObject(new Colonist(300, 300));
 		grid = new Grid();
-		mousetest = new MouseTest(game,handler,grid);
+		mousetest = new MouseTest(game,this,handler,grid);
 		game.addMouseListener(mousetest);
 		new WorldGenerator(new Random().nextInt(20), handler, grid);
 		game.addKeyListener(new KeyInputGame(game,this, handler));
@@ -43,7 +45,7 @@ public class GameManager {
 		grid.render(g);
 		g2d.translate(-camX, -camY);//end cam
 
-		//Camera
+
 	}
 
 }

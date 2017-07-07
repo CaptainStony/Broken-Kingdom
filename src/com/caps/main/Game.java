@@ -28,7 +28,7 @@ public class Game extends Canvas implements Runnable{
 	private MouseInput mouseinput;
 	private Menu menu;
 	public GameManager gamemanager;
-	private int Frames = 0;
+	public int Frames = 0;
 //	private Random r = new Random();
 
 	
@@ -115,10 +115,6 @@ public class Game extends Canvas implements Runnable{
 		}else if (gameState == STATE.Menu){
 			menu.render(g);
 		}
-		
-		g.setFont(new Font("default", Font.PLAIN, 10));
-		g.setColor(Color.white);
-		g.drawString(""+Frames, 5, 20);
 		
 		g.dispose();
 		bs.show();

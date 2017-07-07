@@ -7,7 +7,9 @@ public class Grid {
 
 	LinkedList<GridCell> gridCell = new LinkedList<GridCell>();
 	LinkedList<Tile> tile = new LinkedList<Tile>();
-	public int cellWidth = 700, cellHeight = 700;	
+	public int cellWidth = 700, cellHeight = 700;
+	GridCell[][] world = new GridCell[cellWidth][cellHeight];
+
 	public Grid() {
 		generateGrid(cellWidth,cellHeight);
 		generateTiles(cellWidth,cellHeight);
@@ -16,7 +18,9 @@ public class Grid {
 	private void generateGrid(int a, int b){
 		for (int i = 0; i < a; i++) {
 			for (int j = 0; j < b; j++) {
-				gridCell.add(new GridCell(i*10, j*10, this));
+				GridCell cell = new GridCell(i*10, j*10, this);
+				world[i][j] = cell;
+				gridCell.add(cell);
 			}
 		}
 	}

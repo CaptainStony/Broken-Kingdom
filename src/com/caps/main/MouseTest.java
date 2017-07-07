@@ -5,10 +5,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
-import java.util.concurrent.TimeUnit;
 
-import com.caps.cmd.StartGame;
-import com.caps.main.Game.STATE;
 import com.caps.objects.Colonist;
 
 
@@ -16,19 +13,24 @@ public class MouseTest extends MouseAdapter{
 	private Game game;
 	private Handler handler;
 	private Grid grid;
-	public MouseTest(Game game,Handler handler,Grid grid){		
+	private GameManager gameManager;
+	public MouseTest(Game game,GameManager gameManager,Handler handler,Grid grid){		
 		this.game = game;
 		this.grid = grid;
 		this.handler = handler;
+		this.gameManager = gameManager;
 	}
 	
 	public void mousePressed(MouseEvent e){
 		int mx = e.getX();
 		int my = e.getY();
+		int worldX = (int) ((mx - gameManager.camX)/gameManager.scaleX);
+		int worldY = (int) ((my - gameManager.camY)/gameManager.scaleY);
+
 		Point mousePoint = new Point(mx, my);
-		for (Colonist colonist : handler.Colonist) {
+		for (Colonist colonist : handler.colonist) {
 			//gotoCords(cordsToGridCells(mx, my), colonist);
-			calculatePath(cordsToGridCells((int)colonist.getX(), (int)colonist.getY()), cordsToGridCells(mx, my), colonist);
+			calculatePath(cordsToGridCells((int)colonist.getX(), (int)colonist.getY()), cordsToGridCells(worldX, worldY), colonist);
 		
 		}
 	}
@@ -84,7 +86,6 @@ public class MouseTest extends MouseAdapter{
 				}
 			}
 			bestCell.render = true;
-			System.out.println(bestCell.F+" "+bestCell.G+" "+bestCell.H);
 			path.add(bestCell);
 			startcell = path.getLast();
 			
@@ -92,8 +93,12 @@ public class MouseTest extends MouseAdapter{
 		return path;
 		
 	}
-	
 	private GridCell cordsToGridCells(int x, int y){
+		
+		return grid.world[(int)x/10][(int)y/10];
+	}
+	
+	/*private GridCell cordsToGridCells(int x, int y){
 		Point mousePoint = new Point(x, y);
 		for (GridCell gridcell : grid.gridCell) {
 			if (gridcell.bounds.contains(mousePoint)){
@@ -101,7 +106,7 @@ public class MouseTest extends MouseAdapter{
 			}
 		}
 		return null;
-	}
+	}*/
 	
 	private void gotoCords(GridCell gridcell,Colonist obj){
 		float difX = gridcell.getX() - obj.getX();
