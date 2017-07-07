@@ -30,7 +30,7 @@ public class MouseTest extends MouseAdapter{
 		Point mousePoint = new Point(mx, my);
 		for (Colonist colonist : handler.colonist) {
 			//gotoCords(cordsToGridCells(mx, my), colonist);
-			calculatePath(cordsToGridCells((int)colonist.getX(), (int)colonist.getY()), cordsToGridCells(worldX, worldY), colonist);
+			colonist.path = calculatePath(cordsToGridCells((int)colonist.getX(), (int)colonist.getY()), cordsToGridCells(worldX, worldY), colonist);
 		
 		}
 	}
@@ -108,7 +108,7 @@ public class MouseTest extends MouseAdapter{
 		return null;
 	}*/
 	
-	private void gotoCords(GridCell gridcell,Colonist obj){
+	private void gotoGridCell(GridCell gridcell,Colonist obj){
 		float difX = gridcell.getX() - obj.getX();
 		float difY = gridcell.getY() - obj.getY();
 		float angl = (float) Math.atan(difY/difX);
