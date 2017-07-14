@@ -36,21 +36,10 @@ public class MouseInputGame extends MouseAdapter implements MouseWheelListener{
 		int my = e.getY();
 		Point mousePoint = new Point(mx, my);
 	}
-	
+	public double dir;
 	public void mouseWheelMoved(MouseWheelEvent e){
-		int dir = e.getWheelRotation();
-		//is wa skeer
-		if(gameManager.scale <= 1.6){
-			gameManager.scale -= (double)dir/20;			
-		}else{
-			gameManager.scale = 1.6;
-		}
-		if(gameManager.scale >= 0.25){
-			gameManager.scale -= (double)dir/20;			
-		}else{
-			gameManager.scale = 0.25;
-		}
-
+		dir = e.getWheelRotation();
+		gameManager.goScale = true;
 
 	}
 	
