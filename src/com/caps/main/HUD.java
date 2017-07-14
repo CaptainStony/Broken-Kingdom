@@ -32,7 +32,6 @@ public class HUD extends KeyAdapter{
 		if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) keyPress[3] = true;
 
 	}
-		
 	
 	
 	public void keyReleased(KeyEvent e){
@@ -41,6 +40,7 @@ public class HUD extends KeyAdapter{
 		if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) keyPress[1] = false;
 		if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) keyPress[2] = false;
 		if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) keyPress[3] = false;
+		
 	}
 	
 }
