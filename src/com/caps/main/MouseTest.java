@@ -46,25 +46,23 @@ public class MouseTest extends MouseAdapter{
 	public void mouseMoved(MouseEvent e){
 		int mx = e.getX();
 		int my = e.getY();
-		int worldX = (int) ((mx - gameManager.camX)/gameManager.scale);
-		int worldY = (int) ((my - gameManager.camY)/gameManager.scale);
-		/*for (Tile tile : grid.tile) {
-			if(tile != cordsToTile(worldX, worldY)){
-				tile.setGhostBlock(null);
-				
-			}
-		}*/
+		System.out.println(gameManager.camX);
+		int worldX = (int) ((mx/gameManager.scale - gameManager.camX));
+		int worldY = (int) ((my/gameManager.scale - gameManager.camY));
 
-		Tile selectedTile = cordsToTile(worldX, worldY);
-		if (prevTile != null && prevTile != selectedTile){
-			prevTile.setGhostBlock(null);			
+		if((int)worldX/20 > 0 && (int)worldY/20 > 0 ){
+			Tile selectedTile = cordsToTile(worldX, worldY);
+			if (prevTile != null && prevTile != selectedTile){
+				prevTile.setGhostBlock(null);			
+			}
+			
+			if(prevTile != selectedTile){
+				Tile t = cordsToTile(worldX, worldY);
+				t.setGhostBlock(new IronOre(selectedTile.getX(), selectedTile.getY()));
+				prevTile = selectedTile;	
+			}			
 		}
-		
-		if(prevTile != selectedTile){
-			Tile t = cordsToTile(worldX, worldY);
-			t.setGhostBlock(new IronOre(selectedTile.getX(), selectedTile.getY()));
-			prevTile = selectedTile;	
-		}
+
 	}
 	
 	public void render(Graphics g){

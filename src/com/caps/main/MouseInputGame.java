@@ -36,7 +36,7 @@ public class MouseInputGame extends MouseAdapter implements MouseWheelListener{
 		int my = e.getY();
 		Point mousePoint = new Point(mx, my);
 	}
-	public double dir;
+	public float dir;
 	public void mouseWheelMoved(MouseWheelEvent e){
 		dir = e.getWheelRotation();
 		gameManager.goScale = true;

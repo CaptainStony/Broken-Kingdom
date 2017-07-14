@@ -16,7 +16,6 @@ public class GameManager {
 	private MouseInputGame mouseInputGame;
 	
 	public int camX=0,camY=0;
-	public double scale=1;
 
 	public GameManager(Game game) {
 		this.game = game;
@@ -43,6 +42,7 @@ public class GameManager {
 	}
 	public int camSpeed = 10;
 	public boolean goScale = false;
+	public float scale=1;
 
 	public void render(Graphics g){
 		Graphics2D g2d = (Graphics2D) g;
@@ -66,12 +66,12 @@ public class GameManager {
 			if(scale <= 1.6){
 				scale -= (double)mouseInputGame.dir/20;			
 			}else{
-				scale = 1.6;
+				scale = (float) 1.6;
 			}
 			if(scale >= 0.25){
 				scale -= (double)mouseInputGame.dir/20;			
 			}else{
-				scale = 0.25;
+				scale = (float) 0.25;
 			}	
 			goScale = false;
 		}

@@ -5,8 +5,6 @@ import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardUpLeftHandler;
-
 public class HUD extends KeyAdapter{
 
 	private GameManager gameManager;
@@ -24,7 +22,6 @@ public class HUD extends KeyAdapter{
 	}
 	
 	public boolean[] keyPress = {false,false,false,false};
-	private int camSpeed = 10;
 	
 	public void keyPressed(KeyEvent e){
 		int key = e.getKeyCode();
@@ -33,18 +30,7 @@ public class HUD extends KeyAdapter{
 		if(key == KeyEvent.VK_S || key == KeyEvent.VK_DOWN) keyPress[1] = true;
 		if(key == KeyEvent.VK_A || key == KeyEvent.VK_LEFT) keyPress[2] = true;
 		if(key == KeyEvent.VK_D || key == KeyEvent.VK_RIGHT) keyPress[3] = true;
-		/*if(keyPress[2] == true){
-			gameManager.camX+=camSpeed;
-		}
-		if(keyPress[3] == true){
-			gameManager.camX-=camSpeed;
-		}
-		if(keyPress[0] == true){
-			gameManager.camY+=camSpeed;
-		}
-		if(keyPress[1] == true){
-			gameManager.camY-=camSpeed;
-		}*/
+
 	}
 		
 	
