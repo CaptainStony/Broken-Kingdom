@@ -46,7 +46,6 @@ public class MouseTest extends MouseAdapter{
 	public void mouseMoved(MouseEvent e){
 		int mx = e.getX();
 		int my = e.getY();
-		System.out.println(gameManager.camX);
 		int worldX = (int) ((mx/gameManager.scale - gameManager.camX));
 		int worldY = (int) ((my/gameManager.scale - gameManager.camY));
 
