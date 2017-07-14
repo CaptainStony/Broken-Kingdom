@@ -40,12 +40,13 @@ public class GameManager {
 		handler.tick();
 		hud.tick();
 	}
-	public int camSpeed = 10;
 	public boolean goScale = false;
 	public float scale=1;
+	public int camSpeed = 10;
 
 	public void render(Graphics g){
 		Graphics2D g2d = (Graphics2D) g;
+		camSpeed = (int) (10/(scale/2));
 
 		//CAMERA MOVE
 		if(hud.keyPress[2] == true){
@@ -82,7 +83,6 @@ public class GameManager {
 		grid.render(g);
 		g2d.translate(-camX, -camY);//end cam
 		g2d.scale(1/scale, 1/scale);//end scale
-
 		
 		hud.render(g);
 	}

@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
+import com.caps.objects.Block;
 import com.caps.objects.Colonist;
 import com.caps.objects.IronOre;
 
@@ -25,10 +26,10 @@ public class MouseTest extends MouseAdapter{
 	public void mousePressed(MouseEvent e){
 		int mx = e.getX();
 		int my = e.getY();
-		int worldX = (int) ((mx - gameManager.camX)/gameManager.scale);
-		int worldY = (int) ((my - gameManager.camY)/gameManager.scale);
+		int worldX = (int) ((mx/gameManager.scale - gameManager.camX));
+		int worldY = (int) ((my/gameManager.scale - gameManager.camY));
 
-		Point mousePoint = new Point(mx, my);
+		Point mousePoint = new Point(worldX, worldY);
 		for (Colonist colonist : handler.colonist) {
 			//gotoCords(cordsToGridCells(mx, my), colonist);
 			colonist.path = calculatePath(cordsToGridCells((int)colonist.getX(), (int)colonist.getY()), cordsToGridCells(worldX, worldY), colonist);
@@ -48,20 +49,22 @@ public class MouseTest extends MouseAdapter{
 		int my = e.getY();
 		int worldX = (int) ((mx/gameManager.scale - gameManager.camX));
 		int worldY = (int) ((my/gameManager.scale - gameManager.camY));
-
-		if((int)worldX/20 > 0 && (int)worldY/20 > 0 ){
-			Tile selectedTile = cordsToTile(worldX, worldY);
+		drawGhostBlock(new IronOre(worldX, worldY), worldX, worldY);
+	}
+	
+	private void drawGhostBlock(Block block, int x, int y){
+		if((int)x/20 > 0 && (int)y/20 > 0 ){
+			Tile selectedTile = cordsToTile(x, y);
 			if (prevTile != null && prevTile != selectedTile){
 				prevTile.setGhostBlock(null);			
 			}
 			
 			if(prevTile != selectedTile){
-				Tile t = cordsToTile(worldX, worldY);
+				Tile t = cordsToTile(x, y);
 				t.setGhostBlock(new IronOre(selectedTile.getX(), selectedTile.getY()));
 				prevTile = selectedTile;	
 			}			
 		}
-
 	}
 	
 	public void render(Graphics g){
