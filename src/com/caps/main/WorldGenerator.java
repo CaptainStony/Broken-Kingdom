@@ -19,11 +19,11 @@ public class WorldGenerator
 				double value = - noise.eval(j / FEATURE_SIZE, k / FEATURE_SIZE, 0.0);
 				if(value < 0.4 && value > 0.0){
 					if(value < 0.2 && value > 0.1){
-						handler.addObject(new IronOre(j * 20, k * 20));
+						handler.addBlock(new IronOre(j * 20, k * 20));
 					}else if(value < 0.4 && value > 0.38){
-						handler.addObject(new GoldOre(j * 20, k * 20));
+						handler.addBlock(new GoldOre(j * 20, k * 20));
 					} else {
-						handler.addObject(new Stone(j * 20, k * 20));
+						handler.addBlock(new Stone(j * 20, k * 20));
 					}
 				}
 			}

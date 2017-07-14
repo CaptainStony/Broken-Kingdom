@@ -3,6 +3,7 @@ package com.caps.main;
 import java.awt.Graphics;
 import java.util.LinkedList;
 
+import com.caps.objects.Block;
 import com.caps.objects.Colonist;
 import com.caps.objects.GoldOre;
 import com.caps.objects.IronOre;
@@ -45,24 +46,30 @@ public class Handler {
 	public void addObject(Object object){
 		if(object instanceof Colonist){
 			colonist.add((Colonist) object);
-		}else if (object instanceof Stone){
-			stone.add((Stone) object);
-		}else if (object instanceof IronOre){
-			ironOre.add((IronOre) object);
-		}else if (object instanceof GoldOre){
-			goldOre.add((GoldOre) object);
+		}
+	}
+	public void addBlock(Block block){
+		if (block instanceof Stone){
+			stone.add((Stone) block);
+		}else if (block instanceof IronOre){
+			ironOre.add((IronOre) block);
+		}else if (block instanceof GoldOre){
+			goldOre.add((GoldOre) block);
 		}
 	}
 	
 	public void removeObject(Object object){
 		if(object instanceof Colonist){
 			colonist.remove((Colonist) object);
-		}else if (object instanceof Stone){
-			stone.remove((Stone) object);
-		}else if (object instanceof IronOre){
-			ironOre.remove((IronOre) object);
-		}else if (object instanceof GoldOre){
-			goldOre.remove((GoldOre) object);
+		}
+	}
+	public void removeBlock(Block block){
+		if (block instanceof Stone){
+			stone.remove((Stone) block);
+		}else if (block instanceof IronOre){
+			ironOre.remove((IronOre) block);
+		}else if (block instanceof GoldOre){
+			goldOre.remove((GoldOre) block);
 		}
 	}
 	

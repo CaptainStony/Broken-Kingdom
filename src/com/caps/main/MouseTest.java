@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
 import com.caps.objects.Colonist;
+import com.caps.objects.IronOre;
 
 
 public class MouseTest extends MouseAdapter{
@@ -24,8 +25,8 @@ public class MouseTest extends MouseAdapter{
 	public void mousePressed(MouseEvent e){
 		int mx = e.getX();
 		int my = e.getY();
-		int worldX = (int) ((mx - gameManager.camX)/gameManager.scaleX);
-		int worldY = (int) ((my - gameManager.camY)/gameManager.scaleY);
+		int worldX = (int) ((mx - gameManager.camX)/gameManager.scale);
+		int worldY = (int) ((my - gameManager.camY)/gameManager.scale);
 
 		Point mousePoint = new Point(mx, my);
 		for (Colonist colonist : handler.colonist) {
@@ -35,6 +36,40 @@ public class MouseTest extends MouseAdapter{
 		}
 	}
 	
+	public void mouseReleased(MouseEvent e){
+		
+	}
+	public void tick(){
+		
+	}
+	Tile prevTile = null;
+	public void mouseMoved(MouseEvent e){
+		int mx = e.getX();
+		int my = e.getY();
+		int worldX = (int) ((mx - gameManager.camX)/gameManager.scale);
+		int worldY = (int) ((my - gameManager.camY)/gameManager.scale);
+		/*for (Tile tile : grid.tile) {
+			if(tile != cordsToTile(worldX, worldY)){
+				tile.setGhostBlock(null);
+				
+			}
+		}*/
+
+		Tile selectedTile = cordsToTile(worldX, worldY);
+		if (prevTile != null && prevTile != selectedTile){
+			prevTile.setGhostBlock(null);			
+		}
+		
+		if(prevTile != selectedTile){
+			Tile t = cordsToTile(worldX, worldY);
+			t.setGhostBlock(new IronOre(selectedTile.getX(), selectedTile.getY()));
+			prevTile = selectedTile;	
+		}
+	}
+	
+	public void render(Graphics g){
+
+	}
 	public LinkedList<GridCell> calculatePath(GridCell startcell, GridCell endcell, Colonist obj){
 		LinkedList<GridCell> path = new LinkedList<GridCell>();
 		LinkedList<GridCell> allAdjCells = new LinkedList<GridCell>();
@@ -97,7 +132,10 @@ public class MouseTest extends MouseAdapter{
 		
 		return grid.world[(int)x/10][(int)y/10];
 	}
-	
+	private Tile cordsToTile(int x, int y){
+		
+		return grid.worldTile[(int)x/20][(int)y/20];
+	}
 	/*private GridCell cordsToGridCells(int x, int y){
 		Point mousePoint = new Point(x, y);
 		for (GridCell gridcell : grid.gridCell) {
@@ -122,19 +160,6 @@ public class MouseTest extends MouseAdapter{
 			obj.velX = (float) -(baseSpeed * Math.cos(angl));
 			obj.velY = (float) -(baseSpeed * Math.sin(angl));
 		}
-	}
-	
-	
-	
-	public void mouseReleased(MouseEvent e){
-		
-	}
-	public void tick(){
-		
-	}
-
-	public void render(Graphics g){
-
 	}
 
 }

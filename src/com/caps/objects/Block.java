@@ -4,29 +4,38 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 
 import com.caps.main.GridCell;
+import com.caps.main.Tile;
 
-public abstract class Object {
+public abstract class Block {
 
 	public float x, y;
-	public float velX;
-	public float velY;
 	public GridCell gridLocation;
-
-	public Object(float x, float y){
+	public Tile tileLocation;
+	
+	public Block(float x, float y){
 		this.x = x;
 		this.y = y;
 	}
-	
+
 	public abstract void tick();
 	public abstract void render(Graphics g) ;
 	public abstract Rectangle getBoundsTotal();
 
 	
 	public GridCell getGridLocation() {
-		//set grid loc
 		return gridLocation;
 	}
+	public void setGridLocation(GridCell gridLocation) {
+		this.gridLocation = gridLocation;
+	}
 	
+	public Tile getTileLocation() {
+		return tileLocation;
+	}
+
+	public void setTileLocation(Tile tileLocation) {
+		this.tileLocation = tileLocation;
+	}
 	public void setX(float x){
 		this.x = x;
 	}
@@ -41,22 +50,6 @@ public abstract class Object {
 	
 	public float getY(){
 		return y;
-	}
-	
-	public void setVelX(float velX){
-		this.velX = velX;
-	}
-	
-	public void setVelY(float velY){
-		this.velY= velY;
-	}
-	
-	public float getVelX(){
-		return velX;
-	}
-	
-	public float getVelY(){
-		return velY;
 	}
 
 }

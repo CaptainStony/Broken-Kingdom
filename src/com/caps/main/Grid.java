@@ -9,6 +9,7 @@ public class Grid {
 	LinkedList<Tile> tile = new LinkedList<Tile>();
 	public int cellWidth = 700, cellHeight = 700;
 	GridCell[][] world = new GridCell[cellWidth][cellHeight];
+	Tile[][] worldTile = new Tile[cellWidth/2][cellHeight/2];
 
 	public Grid() {
 		generateGrid(cellWidth,cellHeight);
@@ -30,15 +31,18 @@ public class Grid {
 		b = b/2;
 		for (int i = 0; i < a; i++) {
 			for (int j = 0; j < b; j++) {
-				tile.add(new Tile(i*20, j*20, this));
+				//tile.add(new Tile(i*20, j*20, this));
+				Tile t = new Tile(i*20, j*20, this);
+				tile.add(t);
+				worldTile[i][j] = t;
 			}
 		}
 	}
 	
 	public void render(Graphics g){
-		/*for (Tile tile : tile) {
-			tile.render(g);
-		}*/
+		for (Tile tile : tile) {
+			tile.render(g);				
+		}
 		for (GridCell cell : gridCell) {
 			cell.render(g);
 		}

@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class IronOre extends Object {
+public class IronOre extends Block {
 	private Rectangle bounds;
 	public IronOre(float x, float y){
 		super(x,y);

@@ -1,7 +1,5 @@
 package com.caps.main;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.Random;
@@ -14,9 +12,10 @@ public class GameManager {
 	private Handler handler;
 	private Grid grid;
 	private MouseTest mousetest;
+	private HUD hud;
+	
 	public int camX=0,camY=0;
-	public double scaleX=1;
-	public double scaleY=1;
+	public double scale=1;
 
 	public GameManager(Game game) {
 		this.game = game;
@@ -24,28 +23,45 @@ public class GameManager {
 		handler.addObject(new Colonist(300, 300));
 		grid = new Grid();
 		mousetest = new MouseTest(game,this,handler,grid);
+		hud = new HUD(this);
 		game.addMouseListener(mousetest);
-		new WorldGenerator(new Random().nextInt(20), handler, grid);
-		game.addKeyListener(new KeyInputGame(game,this, handler));
+		game.addMouseMotionListener(mousetest);
 		
+		new WorldGenerator(new Random().nextInt(20), handler, grid);
+		game.addKeyListener(new KeyInputGame(game,this, handler,hud));
+		game.addKeyListener(hud);
 		MouseInputGame mousenInputGame = new MouseInputGame(game,this, handler);
 		game.addMouseListener(mousenInputGame);
 		game.addMouseWheelListener(mousenInputGame);
+				
 	}
 	
 	public void tick(){
 		handler.tick();
+		hud.tick();
 	}
-	
+	private int camSpeed = 10;
 	public void render(Graphics g){
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.scale(scaleX, scaleY);
+		g2d.scale(scale, scale);//begin scale
 		g2d.translate(camX, camY);//begin cam
 		handler.render(g);
 		grid.render(g);
 		g2d.translate(-camX, -camY);//end cam
-
-
+		g2d.scale(1/scale, 1/scale);//end scale
+		if(hud.keyPress[2] == true){
+			camX+=camSpeed;
+		}
+		if(hud.keyPress[3] == true){
+			camX-=camSpeed;
+		}
+		if(hud.keyPress[0] == true){
+			camY+=camSpeed;
+		}
+		if(hud.keyPress[1] == true){
+			camY-=camSpeed;
+		}
+		hud.render(g);
 	}
 
 }
