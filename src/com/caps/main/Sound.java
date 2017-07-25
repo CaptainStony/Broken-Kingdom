@@ -10,7 +10,10 @@ public class Sound {
 	public static int masterVolume = 0;
 	public static Sound backMusic = new Sound("/backgroundMusic.wav");
 	public static Sound click = new Sound("/click.wav");
+	public static Sound gameStart = new Sound("/effects/gameStart.wav");
 
+	public boolean mute = true;
+	
 	public Sound(String fileName) {
 		try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(Sound.class.getResource(fileName));
@@ -24,7 +27,14 @@ public class Sound {
             }else if( fileName == "/click.wav"){
                 gainControl.setValue(-20.0f + masterVolume);
 
+            }else if (fileName == "/effects/gameStart.wav"){
+                gainControl.setValue(-20.0f + masterVolume);
             }
+            
+            if(mute){
+            	gainControl.setValue(-999);
+            }
+            
 		} catch (Exception e) {
             e.printStackTrace();
 		}

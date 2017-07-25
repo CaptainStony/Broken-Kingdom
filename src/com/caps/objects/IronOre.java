@@ -18,7 +18,7 @@ public class IronOre extends Block {
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.red);
+		g.setColor(new Color(108, 62, 2));
 		g.fillRect((int) x, (int) y, 20, 20);
 	}
 

@@ -6,16 +6,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelListener;
 
-import com.caps.cmd.StartGame;
 import com.caps.main.Game.STATE;
-import com.caps.objects.Colonist;
 
 
 public class MouseInput extends MouseAdapter implements MouseWheelListener{
-	private Game game;
 	private Menu menu;
-	public MouseInput(Game game, Menu menu){		
-		this.game = game;
+	public MouseInput(Menu menu){		
 		this.menu = menu;
 	}
 	
@@ -24,7 +20,7 @@ public class MouseInput extends MouseAdapter implements MouseWheelListener{
 		int my = e.getY();
 		Point mousePoint = new Point(mx, my);
 		Sound.click.play();
-		if (game.gameState == STATE.Menu){
+		if (Game.gameState == STATE.Menu){
 			for (Button b : menu.menuButton) {
 				if (b.getBounds().contains(mousePoint)){
 					b.click();
@@ -38,7 +34,7 @@ public class MouseInput extends MouseAdapter implements MouseWheelListener{
 		int mx = e.getX();
 		int my = e.getY();
 		Point mousePoint = new Point(mx, my);
-		if (game.gameState == STATE.Menu){
+		if (Game.gameState == STATE.Menu){
 			for (Button b : menu.menuButton) {
 				if (b.getBounds().contains(mousePoint)){
 					b.setHighlighted(true);

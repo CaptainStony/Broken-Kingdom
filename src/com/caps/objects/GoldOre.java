@@ -16,7 +16,7 @@ public class GoldOre extends Block {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.yellow);
+		g.setColor(new Color(223,218,79));
 		g.fillRect((int) x, (int) y, 20, 20);
 	}
 

@@ -3,7 +3,11 @@ package com.caps.main;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.io.IOException;
 import java.util.LinkedList;
+
+import javax.imageio.ImageIO;
 
 import com.caps.cmd.Credits;
 import com.caps.cmd.IButtonFunctions;
@@ -14,7 +18,10 @@ public class Menu {
 	private Game game;
 	public STATE menuState = STATE.None;
 
+	
 	LinkedList<Button> menuButton = new LinkedList<Button>();
+	
+	private Image backgroundImage = null;
 	
 	public enum STATE{
 		None,
@@ -28,7 +35,13 @@ public class Menu {
 		addButton(50, 50, 500, 30, "Start Game", new StartGame(game),game);
 		addButton(50, 90, 500, 30, "Options", new Options(this),game);
 		addButton(50, 130, 500, 30, "Credits", new Credits(game,this),game);
-		//Sound.backMusic.loop();
+		
+		try {
+			backgroundImage = ImageIO.read(this.getClass().getResource("/menu/kingdom.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Sound.backMusic.loop();
 
 	}
 	
@@ -41,6 +54,7 @@ public class Menu {
 	}
 
 	public void render(Graphics g){
+		g.drawImage(backgroundImage,0,0,Game.WIDTH,Game.HEIGHT,null);
 	    if (menuState == STATE.Options){
 	    	g.setColor(Color.blue);
 	    	g.drawRect(90, 90, 60, 60);
@@ -49,8 +63,8 @@ public class Menu {
 	    	Font orgfont = g.getFont();
 	    	g.setFont(new Font("TimesRoman", Font.PLAIN, 50)); 
 	    	g.drawString("Credits:", 800, 50);
-	    	g.setFont(new Font("TimesRoman", Font.PLAIN, 30)); 
-	    	g.setColor(Color.CYAN);
+	    	g.setFont(new Font("OCR A Extended", Font.PLAIN, 30)); 
+	    	g.setColor(Color.green);
 	    	g.drawString("ThaFartKnight", 800, 90);
 	    	g.drawString("CaptainStony", 800, 120);
 	    	g.setFont(orgfont);

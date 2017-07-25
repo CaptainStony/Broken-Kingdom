@@ -19,7 +19,7 @@ public class Stone extends Block{
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.blue);
+		g.setColor(new Color(61,56,49));
 		g.fillRect((int) x, (int) y, 20, 20);
 	}
 

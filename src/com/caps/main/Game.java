@@ -33,7 +33,7 @@ public class Game extends Canvas implements Runnable{
 	
 	public Game(){
 		menu = new Menu(this);
-		mouseinput = new MouseInput(this, menu);
+		mouseinput = new MouseInput(menu);
 		this.addMouseMotionListener(mouseinput);
 		this.addMouseListener(mouseinput);
 		this.addMouseWheelListener(mouseinput);
@@ -104,17 +104,21 @@ public class Game extends Canvas implements Runnable{
 		if(bs == null){
 			this.createBufferStrategy(3);
 			return;
-		}	
+		}
+
 		Graphics g = bs.getDrawGraphics();
-	    g.setColor(Color.GRAY);
+
+		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		mouseinput.render(g);
 		if (gameState == STATE.Game){
 			gamemanager.render(g);
 		}else if (gameState == STATE.Menu){
+		    g.setColor(Color.GRAY);
+			g.fillRect(0, 0, WIDTH, HEIGHT);
 			menu.render(g);
 		}
-		
+		mouseinput.render(g);
+
 		g.dispose();
 		bs.show();
 	}
