@@ -16,21 +16,18 @@ public class Grid {
 	public int cellWidth = 700, cellHeight = 700;
 	GridCell[][] world = new GridCell[cellWidth][cellHeight];
 	Tile[][] worldTile = new Tile[cellWidth/2][cellHeight/2];
-
+	
 	public Grid() {
 		generateGrid(cellWidth,cellHeight);
 		generateTiles(cellWidth,cellHeight);
 	}
 	
-	private boolean debug = false;
 	public void render(Graphics g){
-		if(debug){
-			for (GridCell cell : gridCell) { // Is for pathfinding debug
-				cell.render(g);
-			}	
-		}
 		for (Tile tile : tile) {
 			tile.render(g);				
+		}
+		for (GridCell cell : gridCell) { // Is for pathfinding debug
+			cell.render(g);
 		}
 	}
 	
@@ -67,18 +64,165 @@ public class Grid {
 		}
 	}
 	
+	private int calculateH(GridCell current, GridCell endCell){
+		return (int) Math.sqrt(((current.getX()-endCell.getX())*(current.getX()-endCell.getX()) + ((current.getY()-endCell.getY())*(current.getY()-endCell.getY()))));
+	}
+	
+	public int getIndexOfMin(LinkedList<Float> data) {
+	    float min = Float.MAX_VALUE;
+	    int index = -1;
+	    for (int i = 0; i < data.size(); i++) {
+	        Float f = data.get(i);
+	        if (Float.compare(f.floatValue(), min) < 0) {
+	            min = f.floatValue();
+	            index = i;
+	        }
+	    }
+	    return index;
+	}
+	
+	
+	public LinkedList<GridCell> calculatePathTEST(GridCell startcell, GridCell endcell){
+		LinkedList<GridCell> closedList = new LinkedList<GridCell>();
+		LinkedList<GridCell> openList = new LinkedList<GridCell>();
+		LinkedList<GridCell> path = new LinkedList<GridCell>();
+		GridCell current = startcell;
+		LinkedList<Float> openListF = new LinkedList<Float>();
+		
+		openList.add(startcell);
+		openListF.add((float) startcell.getF());
+		startcell.setG(0);
+		startcell.setH(calculateH(startcell, endcell));
+		
+		Tile startTile = cordsToTile(startcell.getX(), startcell.getY());
+		Tile endTile = cordsToTile(endcell.getX(), endcell.getY());
+		if(startTile.isWall() || endTile.isWall()) {
+			return path;
+		}
+		
+		for (GridCell gridCell : gridCell) {
+			gridCell.render = false;
+		}
+		
+		while(!openList.isEmpty()){	
+			System.out.println(System.currentTimeMillis());
+			current = openList.get(getIndexOfMin(openListF));
+			System.out.println("");
+
+			if(current == endcell){
+				path.add(current);
+				while(current != startcell){
+					current = current.getPreviousCell();
+					path.addFirst(current);
+				}
+				return path;
+			}
+			openListF.remove(openList.indexOf(current));
+			openList.remove(current);
+			closedList.add(current);
+			LinkedList<GridCell> adjCells = current.getAvailableAdjacentCells();
+			for (GridCell neighbor : adjCells) {
+				int backG = neighbor.getG();
+				GridCell backNeighborPrevCell = neighbor.getPreviousCell();
+				if(!closedList.contains(neighbor)){
+					neighbor.setPreviousCell(current);
+					neighbor.setH(calculateH(neighbor, endcell));
+					if(neighbor.isDiagonal(current)){
+						neighbor.setG(current.getG()+14);						
+					}else{
+						neighbor.setG(current.getG()+10);
+					}
+					if(!openList.contains(neighbor)){
+						openList.add(neighbor);
+						openListF.add((float) neighbor.getF());
+					}else{
+						if(neighbor.getG() < backG){
+							neighbor.render = true;
+							neighbor.setG(backG);
+							neighbor.setPreviousCell(backNeighborPrevCell);
+						}
+					}
+				}
+			}
+			
+			
+		}
+		return path;
+	}
+	
 	public LinkedList<GridCell> calculatePath(GridCell startcell, GridCell endcell){
+		LinkedList<GridCell> closedList = new LinkedList<GridCell>();
+		LinkedList<GridCell> openList = new LinkedList<GridCell>();
+		LinkedList<GridCell> path = new LinkedList<GridCell>();
+		GridCell current = startcell;
+		
+		openList.add(startcell);
+		startcell.setG(0);
+		startcell.setH(calculateH(startcell, endcell));
+		
+		Tile startTile = cordsToTile(startcell.getX(), startcell.getY());
+		Tile endTile = cordsToTile(endcell.getX(), endcell.getY());
+		if(startTile.isWall() || endTile.isWall()) {
+			return path;
+		}
+		
+		while(!openList.isEmpty()){	
+			int lowestF = 9999999;//Needs to be faster
+			for (GridCell gridCell : openList) {
+				if(gridCell.getF() < lowestF){
+					current = gridCell;
+					lowestF = gridCell.getF();
+				}
+			}
+
+			if(current == endcell){
+				path.add(current);
+				while(current != startcell){
+					current = current.getPreviousCell();
+					path.addFirst(current);
+				}
+				return path;
+			}
+			openList.remove(current);
+			closedList.add(current);
+			LinkedList<GridCell> adjCells = current.getAvailableAdjacentCells();
+			for (GridCell neighbor : adjCells) {
+				int backG = neighbor.getG();
+				GridCell backNeighborPrevCell = neighbor.getPreviousCell();
+				if(!closedList.contains(neighbor)){
+					neighbor.setPreviousCell(current);
+					neighbor.setH(calculateH(neighbor, endcell));
+					if(neighbor.isDiagonal(current)){
+						neighbor.setG(current.getG()+14);						
+					}else{
+						neighbor.setG(current.getG()+10);
+					}
+					if(!openList.contains(neighbor)){
+						openList.add(neighbor);
+					}else{
+						if(neighbor.getG() < backG){
+							neighbor.setG(backG);
+							neighbor.setPreviousCell(backNeighborPrevCell);
+						}
+					}
+				}
+			}
+			
+			
+		}
+		return path;
+	}
+
+	public LinkedList<GridCell> calculatePathBack(GridCell startcell, GridCell endcell){
 		LinkedList<GridCell> path = new LinkedList<GridCell>();
 		LinkedList<GridCell> closedList = new LinkedList<GridCell>();
 		LinkedList<GridCell> openList = new LinkedList<GridCell>();
 		LinkedList<GridCell> allAdjCells = new LinkedList<GridCell>();
 
 		Tile endTile = cordsToTile(endcell.getX(), endcell.getY());
-		startcell.F = 0;
 		startcell.G = 0;
 		startcell.H = 0;
 		
-		endcell.F = 0;
 		endcell.G = 0;
 		endcell.H = 0;
 		
@@ -120,11 +264,9 @@ public class Grid {
 							allAdjCells.add(adjCell);
 							adjCell.G = startcell.G + 10;
 							adjCell.H = Math.abs(adjCell.getX() - endcell.getX())/10 + Math.abs(adjCell.getY() - endcell.getY())/10;
-							adjCell.F = adjCell.H + adjCell.G;
 						}
 					}
 				}
-				startcell.setAllAdjCells(allAdjCells);
 
 				if (openList.containsAll(allAdjCells)){
 					path.removeLast();
@@ -151,8 +293,8 @@ public class Grid {
 					int lowest = 999999999;
 					GridCell bestCell = null;
 					for (GridCell gridCell : allAdjCells) {
-						if (gridCell.F < lowest){
-							lowest = (int) gridCell.F;
+						if (gridCell.getF() < lowest){
+							lowest = (int) gridCell.getF();
 							bestCell = gridCell;
 							
 						}

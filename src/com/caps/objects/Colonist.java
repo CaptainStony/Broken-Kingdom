@@ -14,9 +14,8 @@ import com.caps.main.Grid;
 import com.caps.main.GridCell;
 import com.caps.main.Handler;
 
-public class Colonist extends Object {
+public class Colonist extends GameObject {
 	
-	public LinkedList<GridCell> path = new LinkedList<GridCell>();
 	private Grid grid;
 	public LinkedList<GameButton> colonistButtons = new LinkedList<GameButton>();
 	
@@ -50,20 +49,13 @@ public class Colonist extends Object {
 		g.setColor(Color.black);
     	g.setFont(new Font("TimesRoman", Font.PLAIN, 20)); 
 		g.drawString("C", (int)x+4, (int)y+16);
+		showPath(g);
 
 	}
 
 	public Rectangle getBoundsTotal() {
 		return new Rectangle((int)x, (int)y, 20, 20);
 
-	}
-	
-	public LinkedList<GridCell> getPath() {
-		return path;
-	}
-
-	public void setPath(LinkedList<GridCell> path) {
-		this.path = path;
 	}
 
 	private void gridUpdate(){

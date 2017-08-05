@@ -14,7 +14,7 @@ import com.caps.main.Grid;
 import com.caps.main.GridCell;
 import com.caps.main.Handler;
 
-public class Flag extends Object{
+public class Flag extends GameObject{
 	
 	public LinkedList<GameButton> flagButtons = new LinkedList<GameButton>();
 	public GridCell waypoint;
@@ -53,8 +53,9 @@ public class Flag extends Object{
 		
 		
 	}
-	
-	
+
+
+
 	private  int randInt(int min, int max) {
 	    Random rand = new Random();
 	    int randomNum = rand.nextInt((max - min) + 1) + min;
@@ -86,4 +87,12 @@ public class Flag extends Object{
 
 	}
 
+	public GridCell getWaypoint() {
+		return waypoint;
+	}
+
+
+	public void setWaypoint(GridCell waypoint) {
+		this.waypoint = waypoint;
+	}
 }

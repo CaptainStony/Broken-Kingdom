@@ -11,7 +11,10 @@ public abstract class Block {
 	public float x, y;
 	public GridCell gridLocation;
 	public Tile tileLocation;
-	
+	public int GoldNeededToBuild;
+	public int StoneNeededToBuild;
+	public int IronNeededToBuild;
+
 	public Block(float x, float y){
 		this.x = x;
 		this.y = y;
@@ -50,6 +53,30 @@ public abstract class Block {
 	
 	public float getY(){
 		return y;
+	}
+	
+	public int getGoldNeededToBuild() {
+		return GoldNeededToBuild;
+	}
+
+	public void setGoldNeededToBuild(int goldNeededToBuild) {
+		GoldNeededToBuild = goldNeededToBuild;
+	}
+
+	public int getStoneNeededToBuild() {
+		return StoneNeededToBuild;
+	}
+
+	public void setStoneNeededToBuild(int stoneNeededToBuild) {
+		StoneNeededToBuild = stoneNeededToBuild;
+	}
+
+	public int getIronNeededToBuild() {
+		return IronNeededToBuild;
+	}
+
+	public void setIronNeededToBuild(int ironNeededToBuild) {
+		IronNeededToBuild = ironNeededToBuild;
 	}
 
 }

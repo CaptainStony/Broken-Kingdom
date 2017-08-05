@@ -1,4 +1,4 @@
-package com.caps.ButtonHUD;
+package com.caps.ButtonInGameMenu;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 
 import com.caps.ButtonMenu.IButtonFunctions;
 
-public class GameButton {
+public class InGameMenuButton {
 	private int x,y,width,height;
 	private String text;
 	private IButtonFunctions func;
@@ -14,7 +14,7 @@ public class GameButton {
 
 	private Boolean highlighted = false;
 	
-	public GameButton(int x, int y, int width, int height,String text, IButtonFunctions ibf) {
+	public InGameMenuButton(int x, int y, int width, int height,String text, IButtonFunctions ibf) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -40,7 +40,7 @@ public class GameButton {
 		g.setColor(Color.white);
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.black);
-		g.drawString(text, (int) (x+width/2-(text.length()*3)), y+height/2);
+		g.drawString(text, (int) (x+width/2-(text.length()*3)), (int)(y+height/1.4));
 		
 		if (highlighted){
 			g.setColor(Color.yellow);

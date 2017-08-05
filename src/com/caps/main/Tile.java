@@ -6,14 +6,17 @@ import java.awt.Rectangle;
 import java.util.LinkedList;
 
 import com.caps.objects.Block;
+import com.caps.objects.BoundWall;
+import com.caps.objects.GoldOre;
+import com.caps.objects.IronOre;
+import com.caps.objects.Stone;
+import com.caps.objects.StoneWall;
 
 public class Tile {
 	public int x,y;
 	public Grid grid;
 	public Rectangle bounds;
 	public LinkedList<Block> blockList = new LinkedList<Block>();
-
-	private boolean isWall = false;
 	
 	public Tile(int x, int y, Grid grid) {
 		this.x = x;
@@ -29,14 +32,15 @@ public class Tile {
 				b.render(g2d);
 			}
 		}
-		
-		/*if (ghostBlock != null){
-			Composite old = g2d.getComposite();
-			g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, (float)0.4));
-			ghostBlock.render(g);
-			g2d.setComposite(old);
-		}*/
-
+	}
+	
+	public boolean isWall() {
+		for (Block block : blockList) {
+			if(block instanceof IronOre || block instanceof GoldOre || block instanceof Stone || block instanceof StoneWall || block instanceof BoundWall) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public LinkedList<Block> getBlockList() {

@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import com.caps.main.Grid;
 import com.caps.main.GridCell;
 
-public class Knight extends Object {
+public class Knight extends GameObject {
 	
 	public LinkedList<GridCell> path = new LinkedList<GridCell>();
 	public LinkedList<GridCell> closedList = new LinkedList<GridCell>();

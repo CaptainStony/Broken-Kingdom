@@ -55,10 +55,11 @@ public class PreGame extends MouseAdapter{
 		int worldX = (int) ((mx/gameManager.scale - gameManager.camX));
 		int worldY = (int) ((my/gameManager.scale - gameManager.camY));
 		Tile t = grid.cordsToTile(worldX, worldY);
-		handler.addObject(new Flag(t.getX(), t.getY() ,grid,handler,gameManager));
-		Sound.gameStart.play();
-		game.removeMouseListener(this);
-		gameManager.preGameActive = false;
-
+		if(!t.isWall()) {
+			handler.addObject(new Flag(t.getX(), t.getY() ,grid,handler,gameManager));
+			Sound.gameStart.play();
+			game.removeMouseListener(this);
+			gameManager.preGameActive = false;	
+		}
 	}
 }

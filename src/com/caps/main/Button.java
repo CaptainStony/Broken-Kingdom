@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-import com.caps.cmd.IButtonFunctions;
+import com.caps.ButtonMenu.IButtonFunctions;
 
 public class Button {
 	private Game game;

@@ -4,15 +4,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class StoneWall extends Block{
+public class BoundWall extends Block{
 	
 	private Rectangle bounds;
-	public StoneWall(float x, float y){
+	public BoundWall(float x, float y){
 		super(x,y);
 		bounds = new Rectangle((int) x, (int) y, 20, 20);
-		setGoldNeededToBuild(0);
-		setStoneNeededToBuild(20);
-		setIronNeededToBuild(10);
 	}
 
 	@Override
@@ -23,9 +20,8 @@ public class StoneWall extends Block{
 	@Override
 	public void render(Graphics g) {
 
-		g.setColor(new Color(43,5,5));
+		g.setColor(Color.red);
 		g.fillRect((int) x, (int) y, 20, 20);
-		g.setColor(Color.white);
 	}
 
 	@Override

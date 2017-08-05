@@ -9,17 +9,17 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
-import com.caps.cmd.Credits;
-import com.caps.cmd.IButtonFunctions;
-import com.caps.cmd.Options;
-import com.caps.cmd.StartGame;
+import com.caps.ButtonMenu.Credits;
+import com.caps.ButtonMenu.IButtonFunctions;
+import com.caps.ButtonMenu.Options;
+import com.caps.ButtonMenu.StartGame;
 
 public class Menu {
 	private Game game;
 	public STATE menuState = STATE.None;
 
 	
-	LinkedList<Button> menuButton = new LinkedList<Button>();
+	public LinkedList<Button> menuButton = new LinkedList<Button>();
 	
 	private Image backgroundImage = null;
 	

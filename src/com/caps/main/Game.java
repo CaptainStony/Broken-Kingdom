@@ -14,14 +14,16 @@ public class Game extends Canvas implements Runnable{
 	public enum STATE{
 		Game,
 		Menu,
-
+		InGameMenu,
 	};
 
 	private static final long serialVersionUID = 1L;
 
 	protected static final int WIDTH = 1280;
-
 	protected static final int HEIGHT = 720;
+	
+	public static final boolean DEBUG = true;
+	
 	private Thread thread;
 	private boolean running = false;
 	private MouseInput mouseinput;
@@ -92,7 +94,7 @@ public class Game extends Canvas implements Runnable{
 
 	private void tick(){
 		mouseinput.tick();
-		if(gameState == STATE.Game){
+		if(gameState == STATE.Game || gameState == STATE.InGameMenu){
 			gamemanager.tick();
 		}else if(gameState == STATE.Menu){
 			menu.tick();
@@ -110,7 +112,7 @@ public class Game extends Canvas implements Runnable{
 
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
-		if (gameState == STATE.Game){
+		if (gameState == STATE.Game || gameState == STATE.InGameMenu){
 			gamemanager.render(g);
 		}else if (gameState == STATE.Menu){
 		    g.setColor(Color.GRAY);

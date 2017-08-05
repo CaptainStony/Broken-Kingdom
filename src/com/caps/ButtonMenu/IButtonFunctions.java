@@ -1,4 +1,4 @@
-package com.caps.cmd;
+package com.caps.ButtonMenu;
 
 public interface IButtonFunctions {
 	

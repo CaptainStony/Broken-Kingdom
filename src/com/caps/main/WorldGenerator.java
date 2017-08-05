@@ -2,6 +2,7 @@ package com.caps.main;
 
 import java.awt.Color;
 
+import com.caps.objects.BoundWall;
 import com.caps.objects.GoldOre;
 import com.caps.objects.Grass;
 import com.caps.objects.IronOre;
@@ -33,6 +34,16 @@ public class WorldGenerator
 				}
 			}
 		}
+		for (int j = 0; j < WIDTH; j++) {
+			handler.addBlock(new BoundWall(0, j*20));
+			handler.addBlock(new BoundWall((WIDTH-1)*20, j*20));
+		}
+		for (int k = 0; k < HEIGHT; k++) {
+			handler.addBlock(new BoundWall(k*20, 0));
+			handler.addBlock(new BoundWall(k*20, (HEIGHT-1)*20));
+
+		}
+
 		//double value = noise.eval(x / FEATURE_SIZE, y / FEATURE_SIZE, 0.0);
 	}
 }

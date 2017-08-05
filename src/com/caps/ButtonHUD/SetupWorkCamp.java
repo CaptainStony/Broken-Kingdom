@@ -1,6 +1,6 @@
 package com.caps.ButtonHUD;
 
-import com.caps.cmd.IButtonFunctions;
+import com.caps.ButtonMenu.IButtonFunctions;
 import com.caps.main.GameManager;
 import com.caps.main.Grid;
 import com.caps.main.Handler;

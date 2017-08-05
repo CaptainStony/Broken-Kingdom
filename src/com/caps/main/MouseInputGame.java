@@ -8,13 +8,12 @@ import java.awt.event.MouseWheelListener;
 import java.util.LinkedList;
 
 import com.caps.ButtonHUD.GameButton;
+import com.caps.ButtonInGameMenu.InGameMenuButton;
 import com.caps.main.Game.STATE;
 import com.caps.objects.Block;
-import com.caps.objects.Colonist;
 import com.caps.objects.Flag;
-import com.caps.objects.Knight;
+import com.caps.objects.GameObject;
 import com.caps.objects.StoneWall;
-import com.caps.objects.WorkCamp;
 
 
 public class MouseInputGame extends MouseAdapter implements MouseWheelListener{
@@ -23,13 +22,15 @@ public class MouseInputGame extends MouseAdapter implements MouseWheelListener{
 	private Game game;
 	private Grid grid;
 	private HUD hud;
+	private InGameMenu inGameMenu;
 	
-	public MouseInputGame(Game game,GameManager gameManager, Handler handler ,Grid grid,HUD hud){		
+	public MouseInputGame(Game game,GameManager gameManager, Handler handler ,Grid grid,HUD hud, InGameMenu inGameMenu){		
 		this.gameManager = gameManager;
 		this.handler = handler;
 		this.game = game;
 		this.grid = grid;
 		this.hud = hud;
+		this.inGameMenu = inGameMenu;
 	}
 	
 	public void mousePressed(MouseEvent e){
@@ -38,7 +39,6 @@ public class MouseInputGame extends MouseAdapter implements MouseWheelListener{
 		int worldX = (int) ((mx/gameManager.scale - gameManager.camX));
 		int worldY = (int) ((my/gameManager.scale - gameManager.camY));
 		if (Game.gameState == STATE.Game){
-			
 			if(my>620){ //HUD
 				if(gameManager.selectedList.isEmpty()){
 					for (GameButton hudB : hud.hudButtons) {//Button click in hud
@@ -57,7 +57,7 @@ public class MouseInputGame extends MouseAdapter implements MouseWheelListener{
 				}
 				if(e.getButton() == 1){
 					if(gameManager.selectedList.size() > 1){
-						Object o = null;
+						GameObject o = null;
 						o = gameManager.selectedList.get((mx-10)/hud.ofset);
 						gameManager.selectedList.clear();
 						gameManager.selectedList.add(o);
@@ -65,10 +65,16 @@ public class MouseInputGame extends MouseAdapter implements MouseWheelListener{
 				}
 				
 			}else{ //WORLD
-				if(e.getButton() == 1){
+				if(e.getButton() == 1){//left click
 					if(hud.selectedBlock != null){//Place block
-						handler.addBlock(hud.selectedBlock);
-					}else{//Get hit obj
+						if(checksufficientResources(hud.selectedBlock)){
+							handler.addBlock(hud.selectedBlock);
+							removeResoursesToBuildBlock(hud.selectedBlock);
+							hud.showRegularMessage(hud.selectedBlock.getClass().getSimpleName() + " build!");	
+						}else{
+							hud.showRegularMessage("Insufficient resources!");	
+						}
+					}else{//Get clicked obj
 						gameManager.selectedList.clear();
 						hud.gameButtons.clear();
 						gameManager.selectedList = getHitObject(worldX, worldY);	
@@ -76,35 +82,51 @@ public class MouseInputGame extends MouseAdapter implements MouseWheelListener{
 					//System.out.println(gameManager.selectedList);
 				}else if(e.getButton() == 2){
 					
-				}else if(e.getButton() == 3){
+				}else if(e.getButton() == 3){//right click
+					if(gameManager.selectedList.size() == 1 && gameManager.selectedList.getFirst() instanceof Flag) {
+						Flag f = (Flag) gameManager.selectedList.getFirst();
+						f.setWaypoint(grid.cordsToGridCells(worldX, worldY));
+					}
 					hud.selectedBlock = null;
 					hud.buildMode = false;
-					for (Object o : gameManager.selectedList) {//Pathfinding and flag waypointing
-						if(o instanceof Colonist){
-							GridCell startCell = grid.cordsToGridCells((int)((Colonist) o).getX(), (int)((Colonist) o).getY());
-							GridCell endCell = grid.cordsToGridCells(worldX, worldY);
-							((Colonist) o).setPath(grid.calculatePath(startCell, endCell));
-						}else if(o instanceof Knight){
-							GridCell startCell = grid.cordsToGridCells((int)((Knight) o).getX(), (int)((Knight) o).getY());
-							GridCell endCell = grid.cordsToGridCells(worldX, worldY);
-							((Knight) o).setPath(grid.calculatePath(startCell, endCell));
-						}else if(o instanceof Flag){
-							GridCell c = grid.cordsToGridCells(worldX, worldY);
-							((Flag)o).waypoint = c;
-							
-						}
+					for (GameObject o : gameManager.selectedList) {//Pathfinding
+						GridCell startCell = grid.cordsToGridCells((int)(o.getX()), (int)(o.getY()));
+						GridCell endCell = grid.cordsToGridCells(worldX, worldY);
+						o.setVelX(0);
+						o.setVelY(0);
+						o.setPath(grid.calculatePath(startCell, endCell));
 					}
 				}
-			}	
+			}
+		}else if(Game.gameState == STATE.InGameMenu){
+			for (InGameMenuButton menuB : inGameMenu.startMenuButtons) {//Button click
+				if(menuB.getBounds().contains(mx, my)){
+					menuB.click();
+					break;
+				}
+			}
 		}
 	}
+	private void removeResoursesToBuildBlock(Block b){
+		gameManager.IRON -= b.getIronNeededToBuild();
+		gameManager.STONE -= b.getStoneNeededToBuild();
+		gameManager.GOLD -= b.getGoldNeededToBuild();
+	}
+	
+	private boolean checksufficientResources(Block b){
+		if(b.getGoldNeededToBuild() <= gameManager.GOLD && b.getStoneNeededToBuild() <= gameManager.STONE && b.getIronNeededToBuild() <= gameManager.IRON){
+			return true;
+		}
+		return false;
+	}
+	
 	
 	public void mouseMoved(MouseEvent e){
 		int mx = e.getX();
 		int my = e.getY();
 		int worldX = (int) ((mx/gameManager.scale - gameManager.camX));
 		int worldY = (int) ((my/gameManager.scale - gameManager.camY));
-		if(hud.buildMode){
+		if(hud.buildMode){ // Ghost block
 			Tile t = grid.cordsToTile(worldX, worldY);
 			boolean exists = false;
 			for (Block b : t.blockList) {
@@ -134,28 +156,14 @@ public class MouseInputGame extends MouseAdapter implements MouseWheelListener{
 
 	}
 	
-	private LinkedList<Object> getHitObject(int x,int y){
-		LinkedList<Object> ret = new LinkedList<Object>();
+	private LinkedList<GameObject> getHitObject(int x,int y){
+		LinkedList<GameObject> ret = new LinkedList<GameObject>();
 		GridCell c = grid.cordsToGridCells(x, y);
 		Point p = new Point(x,y);
 		
-		for (Object object : c.objectList) {
-			if(object instanceof Colonist){
-				if(((Colonist) object).getBoundsTotal().contains(p)){
-					ret.add(object);
-				}
-			}else if(object instanceof Flag){
-				if(((Flag) object).getBoundsTotal().contains(p)){
-					ret.add(object);
-				}
-			}else if(object instanceof Knight){
-				if(((Knight) object).getBoundsTotal().contains(p)){
-					ret.add(object);
-				}
-			}else if(object instanceof WorkCamp){
-				if(((WorkCamp) object).getBoundsTotal().contains(p)){
-					ret.add(object);
-				}
+		for (GameObject object : c.objectList) {
+			if(object.getBoundsTotal().contains(p)) {
+				ret.add(object);
 			}
 		}
 		

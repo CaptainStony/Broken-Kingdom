@@ -15,7 +15,7 @@ import com.caps.main.GridCell;
 import com.caps.main.Handler;
 import com.caps.main.Tile;
 
-public class WorkCamp extends Object{
+public class WorkCamp extends GameObject{
 	
 	private Rectangle bounds;
 	public Ellipse2D workArea;
@@ -42,8 +42,8 @@ public class WorkCamp extends Object{
 	}
 
 	private Block getBlockToMine(){
-		for (int i = (int) -workArea.getMinX(); i < workArea.getMaxX(); i++) {
-			for (int j = (int) -workArea.getMinY(); j < workArea.getMaxY(); j++) {
+		for (int i = (int) -workArea.getMinX(); i < workArea.getMaxX(); i+=20) {
+			for (int j = (int) -workArea.getMinY(); j < workArea.getMaxY(); j+=20) {
 				Tile t = grid.cordsToTile((int)x+i, (int)y+j);
 				if(!t.blockList.isEmpty()){
 					if(workArea.intersects(t.getBounds()) && !(t.blockList.getFirst() instanceof Grass)){
@@ -58,11 +58,11 @@ public class WorkCamp extends Object{
 	private void mineBlock(Block b){
 		handler.removeBlock(b);
 		if(b instanceof IronOre){
-			gameManager.iron += 50;
+			gameManager.IRON += 50;
 		}else if(b instanceof Stone){
-			gameManager.stone += 50;
+			gameManager.STONE += 50;
 		}else if(b instanceof GoldOre){
-			gameManager.gold += 50;
+			gameManager.GOLD += 50;
 		}
 	}
 	

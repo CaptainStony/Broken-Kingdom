@@ -1,4 +1,4 @@
-package com.caps.cmd;
+package com.caps.ButtonMenu;
 
 import com.caps.main.Game;
 import com.caps.main.Menu;
