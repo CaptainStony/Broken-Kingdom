@@ -7,23 +7,25 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
+import com.caps.main.GameManager;
 import com.caps.main.Grid;
 import com.caps.main.GridCell;
 import com.caps.main.Handler;
 
-public class Knight extends GameObject {
+public class Zombie extends GameObject {
 		
 	public float damage;
 	
 	private Grid grid;
+	private GameManager gameManager;
 	private Handler handler;
 	
-	public Knight(float x, float y, Grid grid,Handler handler) {
+	public Zombie(float x, float y, Grid grid,GameManager gameManager,Handler handler) {
 		super(x, y);
 		this.grid = grid;
+		this.gameManager = gameManager;
 		this.handler = handler;
 		health = 100;
-		
 		gridUpdate();
 	}
 
@@ -37,14 +39,18 @@ public class Knight extends GameObject {
 			followPath();
 			gridUpdate();
 		}
+
+		if(gameManager.DAY) {
+			health--;
+		}
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.cyan);
+		g.setColor(Color.red);
 		g.fillRect((int)x, (int)y, 20, 20);
 		g.setColor(Color.black);
     	g.setFont(new Font("TimesRoman", Font.PLAIN, 20)); 
-		g.drawString("K", (int)x+4, (int)y+16);
+		g.drawString("Z", (int)x+4, (int)y+16);
 	}
 
 
@@ -93,7 +99,7 @@ public class Knight extends GameObject {
 		
 	}
 	
-	private void gotoGridCell(GridCell gridcell,Knight obj){
+	private void gotoGridCell(GridCell gridcell,Zombie obj){
 		float difX = gridcell.getX() - obj.getX();
 		float difY = gridcell.getY() - obj.getY();
 		float angl = (float) Math.atan(difY/difX);

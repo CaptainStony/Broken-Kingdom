@@ -165,7 +165,11 @@ public class Grid {
 		if(startTile.isWall() || endTile.isWall()) {
 			return path;
 		}
-		
+		if(Game.DEBUG) {
+			for (GridCell gridCell : gridCell) {
+				gridCell.render = false;
+			}	
+		}
 		while(!openList.isEmpty()){	
 			int lowestF = 9999999;//Needs to be faster
 			for (GridCell gridCell : openList) {
@@ -187,6 +191,8 @@ public class Grid {
 			closedList.add(current);
 			LinkedList<GridCell> adjCells = current.getAvailableAdjacentCells();
 			for (GridCell neighbor : adjCells) {
+				if(Game.DEBUG)neighbor.render = true;
+				
 				int backG = neighbor.getG();
 				GridCell backNeighborPrevCell = neighbor.getPreviousCell();
 				if(!closedList.contains(neighbor)){

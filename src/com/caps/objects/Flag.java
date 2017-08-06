@@ -19,11 +19,13 @@ public class Flag extends GameObject{
 	public LinkedList<GameButton> flagButtons = new LinkedList<GameButton>();
 	public GridCell waypoint;
 	private GameManager gameManager;
+	private Handler handler;
 	
 	public Flag(float x, float y ,Grid grid,Handler handler, GameManager gameManager) {
 		super(x, y);
 		health = 20;
 		this.gameManager = gameManager;
+		this.handler = handler;
 		//Moet beter
 		Colonist c = new Colonist(x, y,grid,handler, gameManager);
 		c.setPath(grid.calculatePath(grid.cordsToGridCells((int)x, (int)y), grid.cordsToGridCells((int)x+randInt(30, 60), (int)y+randInt(30, 60))));
@@ -64,7 +66,8 @@ public class Flag extends GameObject{
 	}
 	@Override
 	public void tick() {
-		
+		if(health <= 0) handler.removeObject(this);
+
 	}
 	
 	public void render(Graphics g) {

@@ -6,8 +6,10 @@ import java.awt.Graphics2D;
 import java.util.LinkedList;
 import java.util.Random;
 
+import com.caps.main.Event.EVENT;
 import com.caps.main.Game.STATE;
 import com.caps.objects.GameObject;
+import com.caps.objects.Zombie;
 
 public class GameManager {
 
@@ -23,7 +25,7 @@ public class GameManager {
 	public int camX=0,camY=0;
 	public boolean preGameActive = true;
 
-	public int STONE=0,GOLD=0,IRON=0;
+	public int STONE=99999,GOLD=99999,IRON=99999;
 	public int GAMETIME=0; // night start=4500, night end=7000
 	public boolean DAY;
 	
@@ -86,8 +88,12 @@ public class GameManager {
 			}	
 			if(!preGameActive){
 				hud.tick();
+				//gametime manager
 				//night start=4500, night end=7000
-				if(GAMETIME <= 4500){
+				if(GAMETIME >= 4500){
+					if(GAMETIME == 4500) {//1 time run
+						new Event(this, handler, grid,hud, EVENT.ZombieAttack);
+					}
 					DAY = false;
 				}else{
 					DAY = true;

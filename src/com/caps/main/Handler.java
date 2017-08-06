@@ -16,10 +16,11 @@ import com.caps.objects.Knight;
 import com.caps.objects.Stone;
 import com.caps.objects.StoneWall;
 import com.caps.objects.WorkCamp;
+import com.caps.objects.Zombie;
 
 public class Handler {
 
-	LinkedList<Colonist> enemy = new LinkedList<Colonist>();
+	LinkedList<GameObject> enemy = new LinkedList<GameObject>();
 	
 	LinkedList<Colonist> colonist = new LinkedList<Colonist>();
 	LinkedList<Knight> knight = new LinkedList<Knight>();
@@ -118,6 +119,8 @@ public class Handler {
 			knight.add((Knight) GameObject);
 		}else if(GameObject instanceof WorkCamp){
 			workCamp.add((WorkCamp) GameObject);
+		}else if(GameObject instanceof Zombie) {
+			enemy.add(GameObject);
 		}
 	}
 	
@@ -128,6 +131,8 @@ public class Handler {
 			knight.remove((Knight) GameObject);
 		}else if(GameObject instanceof WorkCamp){
 			workCamp.remove((WorkCamp) GameObject);
+		}else if(GameObject instanceof Zombie) {
+			enemy.remove(GameObject);
 		}
 		for (int i = 0; i < 20; i++) {
 			for (int j = 0; j < 20; j++) {

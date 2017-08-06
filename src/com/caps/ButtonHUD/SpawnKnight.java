@@ -19,7 +19,7 @@ public class SpawnKnight implements IButtonFunctions{
 	}
 	@Override
 	public void execute() {
-		Knight k = new Knight(startCell.getX(), startCell.getY(), grid);
+		Knight k = new Knight(startCell.getX(), startCell.getY(), grid,handler);
 		k.setPath(grid.calculatePath(startCell, handler.flag.waypoint));
 		handler.addObject(k);
 	}

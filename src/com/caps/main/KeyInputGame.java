@@ -19,7 +19,10 @@ public class KeyInputGame extends KeyAdapter{
 	}
 	
 	public void keyPressed(KeyEvent e){
-
+		int key = e.getKeyCode();
+		if(key == KeyEvent.VK_Q) {
+			gameManager.GAMETIME += 200;
+		}
 	}
 		
 	

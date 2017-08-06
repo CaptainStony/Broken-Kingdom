@@ -69,6 +69,7 @@ public class WorkCamp extends GameObject{
 	private Block blockToMine = null;
 	@Override
 	public void tick() {
+		if(health <= 0) handler.removeObject(this);
 		if(blockToMine == null){// No block to mine
 			mineTimer = -1;
 		}else{// Blocks to mine!

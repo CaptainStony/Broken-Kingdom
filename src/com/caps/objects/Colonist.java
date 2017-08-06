@@ -17,12 +17,14 @@ import com.caps.main.Handler;
 public class Colonist extends GameObject {
 	
 	private Grid grid;
+	private Handler handler;
 	public LinkedList<GameButton> colonistButtons = new LinkedList<GameButton>();
 	
 	
 	public Colonist(float x, float y, Grid grid, Handler handler, GameManager gameManager) {
 		super(x, y);
 		this.grid = grid;
+		this.handler = handler;
 		health = 50;
 		colonistButtons.add(new GameButton(120, 625, 130, 50, "Make Work Camp", new SetupWorkCamp(handler, grid,gameManager, this)));
 		gridUpdate();
@@ -34,6 +36,8 @@ public class Colonist extends GameObject {
 	public void tick() {
 		x += velX;
 		y += velY;
+		if(health <= 0) handler.removeObject(this);
+
 		if (!path.isEmpty()){
 			followPath();
 			gridUpdate();
