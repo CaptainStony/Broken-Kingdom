@@ -4,12 +4,6 @@ import com.caps.objects.Zombie;
 
 public class Event{
 	
-	private GameManager gameManager;
-	private Handler handler;
-	private Grid grid;
-	private EVENT event;
-	private HUD hud;
-	
 	private int attackScore = 0;
 	
 	public enum EVENT{
@@ -18,11 +12,6 @@ public class Event{
 	};
 	
 	public Event(GameManager gameManager, Handler handler ,Grid grid, HUD hud,EVENT event){
-		this.gameManager = gameManager;
-		this.handler = handler;
-		this.grid = grid;
-		this.event = event;
-		this.hud = hud;
 		
 		//Calculate attack force
 		attackScore += handler.colonist.size()/2;

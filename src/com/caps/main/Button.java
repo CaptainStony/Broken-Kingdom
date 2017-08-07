@@ -9,7 +9,7 @@ import com.caps.ButtonMenu.IButtonFunctions;
 public class Button {
 	private int x,y,width,height;
 	private String text;
-	private IButtonFunctions func;
+	public IButtonFunctions func;
 	private Rectangle bounds;
 
 	private Boolean highlighted = false;

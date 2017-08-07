@@ -9,6 +9,7 @@ import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
 
+import com.caps.ButtonMenu.Back;
 import com.caps.ButtonMenu.Credits;
 import com.caps.ButtonMenu.IButtonFunctions;
 import com.caps.ButtonMenu.Options;
@@ -16,14 +17,14 @@ import com.caps.ButtonMenu.PlayMusic;
 import com.caps.ButtonMenu.StartGame;
 
 public class Menu {
-	public static STATE menuState = STATE.None;
 	
 	public LinkedList<Button> menuButton = new LinkedList<Button>();
 	public LinkedList<Button> optionButtons = new LinkedList<Button>();
 	
+	public static STATE menuState = STATE.None;
 	private Image backgroundImage = null;
 	
-	public static enum STATE{
+	public static enum STATE {
 		None,
 		Options,
 		Credits,
@@ -31,18 +32,18 @@ public class Menu {
 	};
 	
 	public Menu(Game game) {
-		addMenuButton(50, 50, 500, 30, "Start Game", new StartGame(game),game);
-		addMenuButton(50, 90, 500, 30, "Options", new Options(),game);
-		addMenuButton(50, 130, 500, 30, "Credits", new Credits(game),game);
-		addOptionButton(50, 50, 500, 30, "Play music", new PlayMusic(),game);
-		
+		int spacing = 10;
+		addMenuButton(Game.WIDTH / 2 - 250, Game.HEIGHT / 2 - 110, 500, 30, "Start Game", new StartGame(game),game);
+		addMenuButton(menuButton.getFirst().getX(), menuButton.getFirst().getY() + (30 + spacing), 500, 30, "Options", new Options(), game); //button height + spacing of 10px
+		addMenuButton(menuButton.getFirst().getX(), menuButton.get(1).getY() + (30 + spacing), 500, 30, "Credits", new Credits(game), game);
+		addOptionButton(50, 50, 250, 30, "Sound: unmuted", new PlayMusic(this), game);
+		addOptionButton(50, Game.HEIGHT - 100, 250, 30, "Return", new Back(), game);
 		try {
 			backgroundImage = ImageIO.read(this.getClass().getResource("/menu/kingdom.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		Sound.backMusic.loop();
-
 	}
 	
 	public void tick(){
@@ -72,14 +73,12 @@ public class Menu {
 			}
 			break;
 		}
-	
 	}
 
 	public void render(Graphics g){
 		if(backgroundImage != null){
 			g.drawImage(backgroundImage,0,0,Game.WIDTH,Game.HEIGHT,null);
 		}
-		
 		switch(menuState){
 		case Credits:
 			g.setColor(Color.black);
@@ -88,8 +87,8 @@ public class Menu {
 	    	g.drawString("Credits:", 800, 50);
 	    	g.setFont(new Font("OCR A Extended", Font.PLAIN, 30)); 
 	    	g.setColor(Color.green);
-	    	g.drawString("ThaFartKnight", 800, 90);
-	    	g.drawString("CaptainStony", 800, 120);
+	    	g.drawString("CaptainStony", 800, 90);
+	    	g.drawString("ThaFartKnight", 800, 120);
 	    	g.setFont(orgfont);
 	    	for (int i = 0; i < menuButton.size(); i++) {
 				Button tempButton = menuButton.get(i);
@@ -108,7 +107,6 @@ public class Menu {
 				tempButton.render(g);
 			}
 			break;
-		
 		}
 		
 	}

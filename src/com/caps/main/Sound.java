@@ -14,7 +14,7 @@ public class Sound {
 	public static Sound gameStart = new Sound("/effects/gameStart.wav");
 	public boolean isMuted = false;
 	
-	public Sound(String fileName) {
+	private Sound(String fileName) {
 		try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(Sound.class.getResource(fileName));
 
@@ -70,14 +70,14 @@ public class Sound {
     public void toggleMute(){
     	if(clip.isActive()){
     		clip.stop();
+    		isMuted = true;
     	}else{
     		clip.start();
+    		isMuted = false;
     	}
     }
     public boolean isActive(){
-
         return clip.isActive();
-
     }
 
 }
