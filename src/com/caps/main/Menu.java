@@ -113,8 +113,7 @@ public class Menu {
 		
 	}
 	private void addMenuButton(int x, int y,int width, int height, String text, IButtonFunctions ibf, Game game){
-		Button button = new Button(x, y, width, height, text, ibf);
-		addMenuButton(button);
+		addMenuButton(new Button(x, y, width, height, text, ibf));
 	}
 	
 	public void addMenuButton(Button button){
@@ -122,8 +121,7 @@ public class Menu {
 	}
 	
 	private void addOptionButton(int x, int y,int width, int height, String text, IButtonFunctions ibf, Game game){
-		Button button = new Button(x, y, width, height, text, ibf);
-		addOptionButton(button);
+		addOptionButton(new Button(x, y, width, height, text, ibf));
 	}
 	
 	public void addOptionButton(Button button){
