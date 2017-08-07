@@ -5,7 +5,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
-import java.net.URL;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
@@ -17,9 +16,7 @@ import com.caps.ButtonMenu.PlayMusic;
 import com.caps.ButtonMenu.StartGame;
 
 public class Menu {
-	private Game game;
 	public static STATE menuState = STATE.None;
-
 	
 	public LinkedList<Button> menuButton = new LinkedList<Button>();
 	public LinkedList<Button> optionButtons = new LinkedList<Button>();
@@ -34,10 +31,9 @@ public class Menu {
 	};
 	
 	public Menu(Game game) {
-		this.game = game;
 		addMenuButton(50, 50, 500, 30, "Start Game", new StartGame(game),game);
-		addMenuButton(50, 90, 500, 30, "Options", new Options(this),game);
-		addMenuButton(50, 130, 500, 30, "Credits", new Credits(game,this),game);
+		addMenuButton(50, 90, 500, 30, "Options", new Options(),game);
+		addMenuButton(50, 130, 500, 30, "Credits", new Credits(game),game);
 		addOptionButton(50, 50, 500, 30, "Play music", new PlayMusic(),game);
 		
 		try {
@@ -117,7 +113,7 @@ public class Menu {
 		
 	}
 	private void addMenuButton(int x, int y,int width, int height, String text, IButtonFunctions ibf, Game game){
-		Button button = new Button(x, y, width, height, text, ibf, game);
+		Button button = new Button(x, y, width, height, text, ibf);
 		addMenuButton(button);
 	}
 	
@@ -126,7 +122,7 @@ public class Menu {
 	}
 	
 	private void addOptionButton(int x, int y,int width, int height, String text, IButtonFunctions ibf, Game game){
-		Button button = new Button(x, y, width, height, text, ibf, game);
+		Button button = new Button(x, y, width, height, text, ibf);
 		addOptionButton(button);
 	}
 	

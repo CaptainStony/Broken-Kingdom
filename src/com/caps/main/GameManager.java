@@ -9,11 +9,9 @@ import java.util.Random;
 import com.caps.main.Event.EVENT;
 import com.caps.main.Game.STATE;
 import com.caps.objects.GameObject;
-import com.caps.objects.Zombie;
 
 public class GameManager {
 
-	private Game game;
 	private Handler handler;
 	private Grid grid;
 	private HUD hud;
@@ -32,14 +30,13 @@ public class GameManager {
 	public LinkedList<GameObject> selectedList = new LinkedList<GameObject>();
 	
 	public GameManager(Game game) {
-		this.game = game;
 		grid = new Grid();
 		handler = new Handler(grid,this);
-		hud = new HUD(this, handler, grid);
+		hud = new HUD(this);
 		inGameMenu = new InGameMenu();
-		mouseInputGame = new MouseInputGame(game,this, handler,grid,hud,inGameMenu);
+		mouseInputGame = new MouseInputGame(this, handler,grid,hud,inGameMenu);
 		new WorldGenerator(new Random().nextInt(20), handler, grid);
-		game.addKeyListener(new KeyInputGame(game,this, handler,hud));
+		game.addKeyListener(new KeyInputGame(game,this));
 		game.addKeyListener(hud);
 		game.addMouseListener(mouseInputGame);
 		game.addMouseWheelListener(mouseInputGame);

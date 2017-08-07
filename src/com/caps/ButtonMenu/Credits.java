@@ -6,13 +6,11 @@ import com.caps.main.Menu.STATE;
 
 public class Credits implements IButtonFunctions{
 	//private Game game;
-	private Menu menu;
-	public Credits(Game game, Menu menu){
+	public Credits(Game game){
 		//this.game = game;
-		this.menu = menu;
 	}
 	@Override
 	public void execute() {
-		menu.menuState = STATE.Credits;
+		Menu.menuState = STATE.Credits;
 	}
 }

@@ -20,8 +20,6 @@ import com.caps.objects.WorkCamp;
 public class HUD extends KeyAdapter{
 
 	private GameManager gameManager;
-	private Handler handler;
-	private Grid grid;
 	public LinkedList<GameButton> gameButtons = new LinkedList<GameButton>();
 	public LinkedList<GameButton> hudButtons = new LinkedList<GameButton>();
 	
@@ -29,10 +27,8 @@ public class HUD extends KeyAdapter{
 	public Block selectedBlock; //selected block to build
 	public boolean buildMode = false; //show selected block
 	
-	public HUD(GameManager gameManager, Handler handler, Grid grid){
+	public HUD(GameManager gameManager){
 		this.gameManager = gameManager;
-		this.handler = handler;
-		this.grid = grid;
 		hudButtons.add(new GameButton(14, 625, 74, 50, "Stone wall", new SetBuildBlock(this, new StoneWall(1,1))));
 
 	}

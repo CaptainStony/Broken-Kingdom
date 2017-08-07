@@ -6,16 +6,10 @@ import java.awt.event.KeyEvent;
 
 public class KeyInputGame extends KeyAdapter{
 
-	private Game game;
-	private Handler handler;
 	private GameManager gameManager;
-	private HUD hud;
 	
-	public KeyInputGame(Game game,GameManager gameManager,Handler handler, HUD hud){
-		this.game = game;
-		this.handler = handler;
+	public KeyInputGame(Game game,GameManager gameManager){
 		this.gameManager = gameManager;
-		this.hud = hud;
 	}
 	
 	public void keyPressed(KeyEvent e){
@@ -27,7 +21,7 @@ public class KeyInputGame extends KeyAdapter{
 		
 	
 	public void keyReleased(KeyEvent e){
-		int key = e.getKeyCode();
+		//int key = e.getKeyCode();
 
 	}
 }

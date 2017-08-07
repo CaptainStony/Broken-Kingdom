@@ -4,12 +4,10 @@ import com.caps.main.Menu;
 import com.caps.main.Menu.STATE;
 
 public class Options implements IButtonFunctions{
-	private Menu menu;
-	public Options(Menu menu){
-		this.menu = menu;
+	public Options(){
 	}
 	@Override
 	public void execute() {
-		menu.menuState = STATE.Options;
+		Menu.menuState = STATE.Options;
 	}
 }

@@ -19,15 +19,13 @@ import com.caps.objects.StoneWall;
 public class MouseInputGame extends MouseAdapter implements MouseWheelListener{
 	private GameManager gameManager;
 	private Handler handler;
-	private Game game;
 	private Grid grid;
 	private HUD hud;
 	private InGameMenu inGameMenu;
 	
-	public MouseInputGame(Game game,GameManager gameManager, Handler handler ,Grid grid,HUD hud, InGameMenu inGameMenu){		
+	public MouseInputGame(GameManager gameManager, Handler handler ,Grid grid,HUD hud, InGameMenu inGameMenu){		
 		this.gameManager = gameManager;
 		this.handler = handler;
-		this.game = game;
 		this.grid = grid;
 		this.hud = hud;
 		this.inGameMenu = inGameMenu;

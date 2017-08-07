@@ -7,7 +7,6 @@ import java.awt.Rectangle;
 import com.caps.ButtonMenu.IButtonFunctions;
 
 public class Button {
-	private Game game;
 	private int x,y,width,height;
 	private String text;
 	private IButtonFunctions func;
@@ -15,8 +14,7 @@ public class Button {
 
 	private Boolean highlighted = false;
 	
-	public Button(int x, int y, int width, int height,String text, IButtonFunctions ibf, Game game) {
-		this.game = game;
+	public Button(int x, int y, int width, int height,String text, IButtonFunctions ibf) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
