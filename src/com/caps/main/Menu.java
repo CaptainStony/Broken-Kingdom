@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.IOException;
+import java.net.URL;
 import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
@@ -12,18 +13,20 @@ import javax.imageio.ImageIO;
 import com.caps.ButtonMenu.Credits;
 import com.caps.ButtonMenu.IButtonFunctions;
 import com.caps.ButtonMenu.Options;
+import com.caps.ButtonMenu.PlayMusic;
 import com.caps.ButtonMenu.StartGame;
 
 public class Menu {
 	private Game game;
-	public STATE menuState = STATE.None;
+	public static STATE menuState = STATE.None;
 
 	
 	public LinkedList<Button> menuButton = new LinkedList<Button>();
+	public LinkedList<Button> optionButtons = new LinkedList<Button>();
 	
 	private Image backgroundImage = null;
 	
-	public enum STATE{
+	public static enum STATE{
 		None,
 		Options,
 		Credits,
@@ -32,9 +35,10 @@ public class Menu {
 	
 	public Menu(Game game) {
 		this.game = game;
-		addButton(50, 50, 500, 30, "Start Game", new StartGame(game),game);
-		addButton(50, 90, 500, 30, "Options", new Options(this),game);
-		addButton(50, 130, 500, 30, "Credits", new Credits(game,this),game);
+		addMenuButton(50, 50, 500, 30, "Start Game", new StartGame(game),game);
+		addMenuButton(50, 90, 500, 30, "Options", new Options(this),game);
+		addMenuButton(50, 130, 500, 30, "Credits", new Credits(game,this),game);
+		addOptionButton(50, 50, 500, 30, "Play music", new PlayMusic(),game);
 		
 		try {
 			backgroundImage = ImageIO.read(this.getClass().getResource("/menu/kingdom.png"));
@@ -46,20 +50,43 @@ public class Menu {
 	}
 	
 	public void tick(){
-		for (int i = 0; i < menuButton.size(); i++) {
-			Button tempButton = menuButton.get(i);
-			tempButton.tick();
-		}	
+		switch(menuState){
+		case Credits:
+			for (int i = 0; i < menuButton.size(); i++) {
+				Button tempButton = menuButton.get(i);
+				tempButton.tick();
+			}
+			break;
+		case None:
+			for (int i = 0; i < menuButton.size(); i++) {
+				Button tempButton = menuButton.get(i);
+				tempButton.tick();
+			}
+			break;
+		case Options:
+			for (int i = 0; i < optionButtons.size(); i++) {
+				Button tmp = optionButtons.get(i);
+				tmp.tick();
+			}
+			break;
+		default:
+			for (int i = 0; i < menuButton.size(); i++) {
+				Button tempButton = menuButton.get(i);
+				tempButton.tick();
+			}
+			break;
+		}
 	
 	}
 
 	public void render(Graphics g){
-		g.drawImage(backgroundImage,0,0,Game.WIDTH,Game.HEIGHT,null);
-	    if (menuState == STATE.Options){
-	    	g.setColor(Color.blue);
-	    	g.drawRect(90, 90, 60, 60);
-	    }else if (menuState == STATE.Credits){
-	    	g.setColor(Color.black);
+		if(backgroundImage != null){
+			g.drawImage(backgroundImage,0,0,Game.WIDTH,Game.HEIGHT,null);
+		}
+		
+		switch(menuState){
+		case Credits:
+			g.setColor(Color.black);
 	    	Font orgfont = g.getFont();
 	    	g.setFont(new Font("TimesRoman", Font.PLAIN, 50)); 
 	    	g.drawString("Credits:", 800, 50);
@@ -68,19 +95,43 @@ public class Menu {
 	    	g.drawString("ThaFartKnight", 800, 90);
 	    	g.drawString("CaptainStony", 800, 120);
 	    	g.setFont(orgfont);
-	    }
-		for (int i = 0; i < menuButton.size(); i++) {
-			Button tempButton = menuButton.get(i);
-			tempButton.render(g);
+	    	for (int i = 0; i < menuButton.size(); i++) {
+				Button tempButton = menuButton.get(i);
+				tempButton.render(g);
+			}
+			break;
+		case None:
+			for (int i = 0; i < menuButton.size(); i++) {
+				Button tempButton = menuButton.get(i);
+				tempButton.render(g);
+			}
+			break;
+		case Options:
+			for (int i = 0; i < optionButtons.size(); i++) {
+				Button tempButton = optionButtons.get(i);
+				tempButton.render(g);
+			}
+			break;
+		
 		}
+		
 	}
-	private void addButton(int x, int y,int width, int height, String text, IButtonFunctions ibf, Game game){
+	private void addMenuButton(int x, int y,int width, int height, String text, IButtonFunctions ibf, Game game){
 		Button button = new Button(x, y, width, height, text, ibf, game);
-		addButton(button);
+		addMenuButton(button);
 	}
 	
-	public void addButton(Button button){
+	public void addMenuButton(Button button){
 		menuButton.add(button);
+	}
+	
+	private void addOptionButton(int x, int y,int width, int height, String text, IButtonFunctions ibf, Game game){
+		Button button = new Button(x, y, width, height, text, ibf, game);
+		addOptionButton(button);
+	}
+	
+	public void addOptionButton(Button button){
+		optionButtons.add(button);
 	}
 
 	public void removeButton(Button button){

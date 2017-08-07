@@ -21,12 +21,26 @@ public class MouseInput extends MouseAdapter implements MouseWheelListener{
 		Point mousePoint = new Point(mx, my);
 		Sound.click.play();
 		if (Game.gameState == STATE.Menu){
-			for (Button b : menu.menuButton) {
-				if (b.getBounds().contains(mousePoint)){
-					b.click();
-					break;
+			switch(Menu.menuState){
+			case None:
+			case Credits:
+				for (Button b : menu.menuButton) {
+					if (b.getBounds().contains(mousePoint)){
+						b.click();
+						break;
+					}
 				}
+				break;
+			case Options:
+				for (Button b : menu.optionButtons) {
+					if (b.getBounds().contains(mousePoint)){
+						b.click();
+						break;
+					}
+				}
+				break;
 			}
+			
 		}
 	}
 	
@@ -38,6 +52,15 @@ public class MouseInput extends MouseAdapter implements MouseWheelListener{
 			for (Button b : menu.menuButton) {
 				if (b.getBounds().contains(mousePoint)){
 					b.setHighlighted(true);
+					break;
+				}else{
+					b.setHighlighted(false);
+				}
+			}
+			for (Button b : menu.optionButtons) {
+				if (b.getBounds().contains(mousePoint)){
+					b.setHighlighted(true);
+					break;
 				}else{
 					b.setHighlighted(false);
 				}

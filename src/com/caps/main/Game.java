@@ -22,7 +22,7 @@ public class Game extends Canvas implements Runnable{
 	protected static final int WIDTH = 1280;
 	protected static final int HEIGHT = 720;
 	
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	
 	private Thread thread;
 	private boolean running = false;

@@ -8,11 +8,11 @@ import javax.sound.sampled.FloatControl;
 public class Sound {
 	private Clip clip;
 	public static int masterVolume = 0;
+	
 	public static Sound backMusic = new Sound("/backgroundMusic.wav");
 	public static Sound click = new Sound("/click.wav");
 	public static Sound gameStart = new Sound("/effects/gameStart.wav");
-
-	public boolean mute = true;
+	public boolean isMuted = false;
 	
 	public Sound(String fileName) {
 		try {
@@ -30,11 +30,6 @@ public class Sound {
             }else if (fileName == "/effects/gameStart.wav"){
                 gainControl.setValue(-20.0f + masterVolume);
             }
-            
-            if(mute){
-            	gainControl.setValue(-999);
-            }
-            
 		} catch (Exception e) {
             e.printStackTrace();
 		}
@@ -42,16 +37,9 @@ public class Sound {
 	public void play() {
         try {
             if (clip != null) {
-                new Thread() {
-                    public void run() {
-                        synchronized (clip) {
-                            clip.stop();
-                            clip.setFramePosition(0);
-                            clip.start();
-
-                        }
-                    }
-                }.start();
+            	clip.stop();
+                clip.setFramePosition(0);
+                clip.start();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -69,24 +57,23 @@ public class Sound {
     public void loop() {
         try {
             if (clip != null) {
-                new Thread() {
-                    public void run() {
-                        synchronized (clip) {
-
-                            clip.stop();
-                            clip.setFramePosition(0);
-                            clip.loop(Clip.LOOP_CONTINUOUSLY);
-
-                        }
-                    }
-                }.start();
+            	clip.stop();
+                clip.setFramePosition(0);
+                clip.loop(Clip.LOOP_CONTINUOUSLY);
             }
         } catch (Exception e) {
             e.printStackTrace();
 
         }
     }
-
+    
+    public void toggleMute(){
+    	if(clip.isActive()){
+    		clip.stop();
+    	}else{
+    		clip.start();
+    	}
+    }
     public boolean isActive(){
 
         return clip.isActive();
