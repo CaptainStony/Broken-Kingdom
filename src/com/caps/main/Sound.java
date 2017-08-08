@@ -36,7 +36,7 @@ public class Sound {
 	}
 	public void play() {
         try {
-            if (clip != null) {
+            if (clip != null && !isMuted) {
             	clip.stop();
                 clip.setFramePosition(0);
                 clip.start();

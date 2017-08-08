@@ -12,6 +12,8 @@ public class PlayMusic implements IButtonFunctions{
 	@Override
 	public void execute() {
 		Sound.backMusic.toggleMute();
+		Sound.click.isMuted = !Sound.click.isMuted;
+		Sound.gameStart.isMuted = !Sound.gameStart.isMuted;
 		for(Button b : menu.optionButtons){
 			if(b.func instanceof PlayMusic){
 				if(Sound.backMusic.isMuted){
