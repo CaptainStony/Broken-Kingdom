@@ -54,11 +54,20 @@ public class MouseInputGame extends MouseAdapter implements MouseWheelListener{
 					}
 				}
 				if(e.getButton() == 1){
-					if(gameManager.selectedList.size() > 1){
+					if(gameManager.selectedList.size() > 1){//More than 1 unit selected
 						GameObject o = null;
 						o = gameManager.selectedList.get((mx-10)/hud.ofset);
 						gameManager.selectedList.clear();
 						gameManager.selectedList.add(o);
+					}
+				}else if(e.getButton() == 3) {
+					if(gameManager.selectedList.size() == 1){//1 unit selected
+						if(gameManager.selectedList.getFirst() instanceof Flag) {
+							Flag f = handler.flag;
+							if(mx > 300) {
+								f.queue.removeIndex((mx-300)/30+1); // remove que item
+							}
+						}	
 					}
 				}
 				

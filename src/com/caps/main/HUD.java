@@ -14,6 +14,7 @@ import com.caps.objects.Block;
 import com.caps.objects.Colonist;
 import com.caps.objects.Flag;
 import com.caps.objects.GameObject;
+import com.caps.objects.Knight;
 import com.caps.objects.StoneWall;
 import com.caps.objects.WorkCamp;
 
@@ -98,6 +99,19 @@ public class HUD extends KeyAdapter{
 				if(gameManager.selectedList.size() == 1){ //Specific unit --> unit actions
 					if(gameManager.selectedList.getFirst() instanceof Flag){
 						Flag f = (Flag) gameManager.selectedList.getFirst();
+						for (int i = 0; i < f.queue.entitieTickQueue.size(); i++) { //render the que
+					    	if(f.queue.entitieQueue.get(i) instanceof Knight) {
+					    		g.setColor(Color.CYAN);
+					    		g.fillRect(300+i*30, 650, 20, 20);
+					    		g.setColor(Color.BLACK);
+					        	g.setFont(new Font("TimesRoman", Font.PLAIN, 20)); 
+					    		g.drawString("K", 303+i*30, 666);
+					    	}
+					    	
+							g.setColor(Color.WHITE);
+					    	g.setFont(new Font("TimesRoman", Font.PLAIN, 14));
+					    	g.drawString(Integer.toString(f.queue.entitieTickQueue.get(i)), 300+i*30, 646);
+						}
 						if(!gameButtons.containsAll(f.flagButtons)){
 							gameButtons.addAll(f.flagButtons);
 
@@ -132,7 +146,7 @@ public class HUD extends KeyAdapter{
 					hudButton.render(g);
 				}
 			}
-
+			
 			//Draw messages
 			if(!regularMessages.isEmpty()){
 				g.setColor(Color.white);

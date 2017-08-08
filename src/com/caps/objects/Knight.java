@@ -37,6 +37,7 @@ public class Knight extends GameObject {
 			followPath();
 			gridUpdate();
 		}
+		
 	}
 
 	public void render(Graphics g) {
@@ -45,6 +46,7 @@ public class Knight extends GameObject {
 		g.setColor(Color.black);
     	g.setFont(new Font("TimesRoman", Font.PLAIN, 20)); 
 		g.drawString("K", (int)x+4, (int)y+16);
+		showPath(g);
 	}
 
 

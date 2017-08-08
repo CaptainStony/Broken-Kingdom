@@ -185,6 +185,7 @@ public class Grid {
 					current = current.getPreviousCell();
 					path.addFirst(current);
 				}
+				path.removeFirst();
 				return path;
 			}
 			openList.remove(current);
