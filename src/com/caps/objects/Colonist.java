@@ -26,7 +26,7 @@ public class Colonist extends GameObject {
 		this.grid = grid;
 		this.handler = handler;
 		health = 50;
-		colonistButtons.add(new GameButton(120, 625, 130, 50, "Make Work Camp", new SetupWorkCamp(handler, grid,gameManager, this)));
+		colonistButtons.add(new GameButton(120, 625, 130, 50, "Make Work Camp", new SetupWorkCamp(handler, grid, gameManager, this)));
 		gridUpdate();
 
 	}

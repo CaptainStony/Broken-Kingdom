@@ -6,6 +6,6 @@ public class ExitGame implements IButtonFunctions{
 	}
 	@Override
 	public void execute() {
-		System.exit(0);
+		System.exit(1);
 	}
 }

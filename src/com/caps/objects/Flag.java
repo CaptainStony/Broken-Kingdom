@@ -13,6 +13,7 @@ import com.caps.main.GameManager;
 import com.caps.main.Grid;
 import com.caps.main.GridCell;
 import com.caps.main.Handler;
+import com.caps.main.Queue;
 
 public class Flag extends GameObject{
 	
@@ -20,12 +21,14 @@ public class Flag extends GameObject{
 	public GridCell waypoint;
 	private GameManager gameManager;
 	private Handler handler;
+	public Queue queue;
 	
 	public Flag(float x, float y ,Grid grid,Handler handler, GameManager gameManager) {
 		super(x, y);
 		health = 20;
 		this.gameManager = gameManager;
 		this.handler = handler;
+		this.queue = new Queue(handler, grid);
 		//Moet beter
 		Colonist c = new Colonist(x, y,grid,handler, gameManager);
 		c.setPath(grid.calculatePath(grid.cordsToGridCells((int)x, (int)y), grid.cordsToGridCells((int)x+randInt(30, 60), (int)y+randInt(30, 60))));
@@ -48,12 +51,9 @@ public class Flag extends GameObject{
 		grid.cordsToGridCells((int)x+10, (int)y+10).objectList.add(this);
 		grid.cordsToGridCells((int)x, (int)y+10).objectList.add(this);
 		
-		GridCell startCell = grid.cordsToGridCells((int)x, (int)y);
 		waypoint = grid.cordsToGridCells((int)x, (int)y+60);
 		
-		flagButtons.add(new GameButton(70, 625, 50, 50, "Knight", new SpawnKnight(handler, grid, startCell)));
-		
-		
+		flagButtons.add(new GameButton(70, 625, 50, 50, "Knight", new SpawnKnight(handler, grid, this)));
 	}
 
 
@@ -67,7 +67,7 @@ public class Flag extends GameObject{
 	@Override
 	public void tick() {
 		if(health <= 0) handler.removeObject(this);
-
+		queue.tick();
 	}
 	
 	public void render(Graphics g) {
