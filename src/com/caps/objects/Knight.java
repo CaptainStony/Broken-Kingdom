@@ -24,7 +24,7 @@ public class Knight extends GameObject {
 		this.handler = handler;
 		health = 100;
 		
-		gridUpdate();
+		//gridUpdate();
 	}
 
 	LinkedList<GridCell> prevC = new LinkedList<GridCell>();

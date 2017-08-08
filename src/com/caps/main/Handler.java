@@ -46,6 +46,7 @@ public class Handler {
 	}
 
 	public void tick(){
+		System.out.println(knight.size());
 		if(!gameManager.preGameActive){
 			 for (GameObject GameObject : colonist) {
 				 GameObject.tick();
