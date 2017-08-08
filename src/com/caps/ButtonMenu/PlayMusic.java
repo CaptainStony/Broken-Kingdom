@@ -1,6 +1,5 @@
 package com.caps.ButtonMenu;
 
-import com.caps.main.Button;
 import com.caps.main.Menu;
 import com.caps.main.Sound;
 
